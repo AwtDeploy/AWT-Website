@@ -10,15 +10,7 @@ export default defineConfig({
   tanstackStart: {
     server: { entry: "server" },
   },
-  vite: {
-    build: {
-      rollupOptions: {
-        output: {
-          entryFileNames: "index.js",
-          chunkFileNames: "chunks/[name].js",
-          assetFileNames: "assets/[name][extname]",
-        },
-      },
-    },
+  nitro: {
+    preset: "vercel",
   },
 });
