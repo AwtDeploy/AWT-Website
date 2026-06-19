@@ -12,7 +12,7 @@ import {
   PRODUCTS,
   ROUTE_META,
 } from "@/lib/site-content";
-import heroInnovation from "@/assets/hero-innovation.jpg";
+import heroInnovationBanner from "@/assets/hero-innovation-banner.png";
 
 export const Route = createFileRoute("/innovation-partners")({
   head: () => ({
@@ -29,29 +29,43 @@ export const Route = createFileRoute("/innovation-partners")({
 function InnovationPartnersPage() {
   return (
     <SiteLayout>
-      <PageHero
-        dark
-        eyebrow="Innovation Partners"
-        title={<>
-          <AnimatedWords text="Co-Building" className="text-white" startDelay={0.2} />{" "}
-          <AnimatedWords text="the" className="text-white" startDelay={0.2} />{" "}
-          <AnimatedWords text="Future" className="text-white" startDelay={0.2} />{" "}
-          <AnimatedWords text="of" className="text-white" startDelay={0.2} />{" "}
-          <AnimatedWords text="Enterprise" className="text-brand" startDelay={0.6} />{" "}
-          <AnimatedWords text="Intelligence." className="text-brand" startDelay={0.6} />
-        </>}
-        subtitle=""
-        image={heroInnovation}
-        primary={{ label: "Become a Partner", to: "/contact-us" }}
-        secondary={{ label: "Request the Portfolio", to: "/contact-us" }}
-      >
-        <p className="mt-4 max-w-xl text-base leading-relaxed text-white/70">
-          <AnimatedWords
-            text="Investing in innovation. Partnering for scale. Creating lasting impact. We invite visionary investors, strategic partners, and technology leaders to shape the next generation of intelligent enterprise platforms."
-            startDelay={1.2}
-          />
-        </p>
-      </PageHero>
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-white">
+        <div className="container-page grid items-center gap-8 py-12 lg:grid-cols-2 lg:py-16">
+          <div>
+            <p className="eyebrow text-brand">Innovation Partners</p>
+            <h1 className="mt-3 text-4xl font-bold leading-tight text-ink md:text-5xl lg:text-[3.4rem]">
+              <AnimatedWords text="Co-Building" className="text-ink" startDelay={0.2} />{" "}
+              <AnimatedWords text="the" className="text-ink" startDelay={0.2} />{" "}
+              <AnimatedWords text="Future" className="text-ink" startDelay={0.2} />{" "}
+              <AnimatedWords text="of" className="text-ink" startDelay={0.2} />{" "}
+              <AnimatedWords text="Enterprise" className="text-brand" startDelay={0.6} />{" "}
+              <AnimatedWords text="Intelligence." className="text-brand" startDelay={0.6} />
+            </h1>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-soft">
+              <AnimatedWords
+                text="Investing in innovation. Partnering for scale. Creating lasting impact. We invite visionary investors, strategic partners, and technology leaders to shape the next generation of intelligent enterprise platforms."
+                startDelay={1.2}
+              />
+            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <Link to="/contact-us" className="btn-primary">
+                Become a Partner <ArrowRight className="size-4" />
+              </Link>
+              <Link to="/contact-us" className="btn-outline">
+                Request the Portfolio <ArrowRight className="size-4" />
+              </Link>
+            </div>
+          </div>
+          <div className="relative flex items-center justify-center">
+            <img
+              src={heroInnovationBanner}
+              alt="Innovation Partners - Handshake with global network"
+              className="w-full max-w-[550px] object-contain animate-scale-in mix-blend-multiply"
+            />
+          </div>
+        </div>
+      </section>
 
       <AnimatedSection delay={0}>
         <section className="border-y border-border bg-white">
