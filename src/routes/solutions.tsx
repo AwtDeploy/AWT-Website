@@ -4,6 +4,7 @@ import { SiteLayout } from "@/components/site/SiteLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { SectionHeader } from "@/components/site/SectionHeader";
 import { AnimatedWords } from "@/components/site/AnimatedWords";
+import { AnimatedSection } from "@/components/site/AnimatedSection";
 import { APPROACH_STEPS, ROUTE_META, SOLUTION_PILLARS, TECHNOLOGIES } from "@/lib/site-content";
 import heroSolutions from "@/assets/hero-solutions.jpg";
 
@@ -45,56 +46,62 @@ function SolutionsPage() {
         </p>
       </PageHero>
 
-      <section className="section">
-        <div className="container-page">
-          <SectionHeader
-            align="center"
-            eyebrow="Our Solutions"
-            title="Comprehensive. Scalable. Future-Ready."
-            description="We combine deep technical expertise with industry knowledge to deliver solutions that solve today’s challenges and prepare for tomorrow’s opportunities."
-          />
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {SOLUTION_PILLARS.map((s) => (
-              <div key={s.title} className="card-soft p-6">
-                <span className="icon-chip"><s.icon className="size-5" /></span>
-                <h3 className="mt-4 font-semibold text-ink">{s.title}</h3>
-                <p className="mt-1.5 text-sm text-ink-soft">{s.description}</p>
-              </div>
-            ))}
+      <AnimatedSection delay={0}>
+        <section className="section">
+          <div className="container-page">
+            <SectionHeader
+              align="center"
+              eyebrow="Our Solutions"
+              title="Comprehensive. Scalable. Future-Ready."
+              description="We combine deep technical expertise with industry knowledge to deliver solutions that solve today's challenges and prepare for tomorrow's opportunities."
+            />
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {SOLUTION_PILLARS.map((s) => (
+                <div key={s.title} className="card-soft p-6">
+                  <span className="icon-chip"><s.icon className="size-5" /></span>
+                  <h3 className="mt-4 font-semibold text-ink">{s.title}</h3>
+                  <p className="mt-1.5 text-sm text-ink-soft">{s.description}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </AnimatedSection>
 
-      <section className="section bg-surface">
-        <div className="container-page grid gap-8 lg:grid-cols-[1fr_2fr]">
-          <div>
-            <p className="eyebrow">Our Approach</p>
-            <h2 className="mt-2 text-3xl font-bold text-ink">A Proven Framework <br />for Enterprise Success</h2>
-            <p className="mt-3 text-ink-soft">We follow a collaborative and agile approach to deliver solutions aligned with your business goals.</p>
+      <AnimatedSection delay={100}>
+        <section className="section bg-surface">
+          <div className="container-page grid gap-8 lg:grid-cols-[1fr_2fr]">
+            <div>
+              <p className="eyebrow">Our Approach</p>
+              <h2 className="mt-2 text-3xl font-bold text-ink">A Proven Framework <br />for Enterprise Success</h2>
+              <p className="mt-3 text-ink-soft">We follow a collaborative and agile approach to deliver solutions aligned with your business goals.</p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+              {APPROACH_STEPS.map((s, i) => (
+                <div key={s.title} className="rounded-xl border border-border bg-white p-4 text-center shadow-sm">
+                  <span className="icon-chip mx-auto"><s.icon className="size-5" /></span>
+                  <div className="mt-3 text-xs font-semibold text-brand">0{i + 1}</div>
+                  <div className="font-semibold text-ink">{s.title}</div>
+                  <p className="mt-1 text-xs text-ink-soft">{s.description}</p>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {APPROACH_STEPS.map((s, i) => (
-              <div key={s.title} className="rounded-xl border border-border bg-white p-4 text-center shadow-sm">
-                <span className="icon-chip mx-auto"><s.icon className="size-5" /></span>
-                <div className="mt-3 text-xs font-semibold text-brand">0{i + 1}</div>
-                <div className="font-semibold text-ink">{s.title}</div>
-                <p className="mt-1 text-xs text-ink-soft">{s.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      </AnimatedSection>
 
-      <section className="section">
-        <div className="container-page grid gap-10 lg:grid-cols-[1fr_2fr] lg:items-center">
-          <SectionHeader eyebrow="Technologies We Work With" title={<>Modern Technologies. <br />Maximum Impact.</>} />
-          <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6">
-            {TECHNOLOGIES.map((t) => (
-              <div key={t} className="rounded-xl border border-border bg-white px-3 py-4 text-center text-sm font-semibold text-ink">{t}</div>
-            ))}
+      <AnimatedSection delay={100}>
+        <section className="section">
+          <div className="container-page grid gap-10 lg:grid-cols-[1fr_2fr] lg:items-center">
+            <SectionHeader eyebrow="Technologies We Work With" title={<>Modern Technologies. <br />Maximum Impact.</>} />
+            <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6">
+              {TECHNOLOGIES.map((t) => (
+                <div key={t} className="rounded-xl border border-border bg-white px-3 py-4 text-center text-sm font-semibold text-ink">{t}</div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </AnimatedSection>
 
       <CTAStrip />
     </SiteLayout>
