@@ -9,6 +9,7 @@ import {
   INNOVATION_MODELS,
   INNOVATION_REASONS,
   METRICS,
+  PRODUCTS,
   ROUTE_META,
 } from "@/lib/site-content";
 import heroInnovation from "@/assets/hero-innovation.jpg";

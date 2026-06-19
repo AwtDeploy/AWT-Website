@@ -14,7 +14,7 @@ import {
   ROUTE_META,
   VALUES,
 } from "@/lib/site-content";
-import heroAbout from "@/assets/hero-about.jpg";
+import heroAboutBanner from "@/assets/hero-about-banner.png";
 import founderImg from "@/assets/Sravan.jpg";
 
 export const Route = createFileRoute("/about-us")({
@@ -32,27 +32,41 @@ export const Route = createFileRoute("/about-us")({
 function AboutPage() {
   return (
     <SiteLayout>
-      <PageHero
-        dark
-        eyebrow="About Us"
-        title={<>
-          <AnimatedWords text="Beyond" className="text-white" startDelay={0.2} />{" "}
-          <AnimatedWords text="Technology." className="text-white" startDelay={0.2} />{" "}
-          <AnimatedWords text="Toward" className="text-brand" startDelay={0.6} />{" "}
-          <AnimatedWords text="Transformation." className="text-brand" startDelay={0.6} />
-        </>}
-        subtitle=""
-        image={heroAbout}
-        primary={{ label: "Partner With AWT", to: "/contact-us" }}
-        secondary={{ label: "Explore Our Solutions", to: "/solutions" }}
-      >
-        <p className="mt-4 max-w-xl text-base leading-relaxed text-white/70">
-          <AnimatedWords
-            text="Since 2018, Angadi World Technologies has been helping organizations transform through intelligent software, cloud, AI, and enterprise engineering excellence."
-            startDelay={1.0}
-          />
-        </p>
-      </PageHero>
+      {/* Hero Section */}
+      <section className="relative overflow-hidden" style={{ backgroundColor: "#FDFDFD" }}>
+        <div className="container-page grid items-center gap-8 py-12 lg:grid-cols-2 lg:py-16">
+          <div>
+            <p className="eyebrow text-brand">About Us</p>
+            <h1 className="mt-3 text-4xl font-bold leading-tight text-ink md:text-5xl lg:text-[3.4rem]">
+              <AnimatedWords text="Beyond" className="text-ink" startDelay={0.2} />{" "}
+              <AnimatedWords text="Technology." className="text-ink" startDelay={0.2} />{" "}
+              <AnimatedWords text="Toward" className="text-brand" startDelay={0.6} />{" "}
+              <AnimatedWords text="Transformation." className="text-brand" startDelay={0.6} />
+            </h1>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-soft">
+              <AnimatedWords
+                text="Since 2018, Angadi World Technologies has been helping organizations transform through intelligent software, cloud, AI, and enterprise engineering excellence."
+                startDelay={1.0}
+              />
+            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <Link to="/contact-us" className="btn-primary">
+                Partner With AWT <ArrowRight className="size-4" />
+              </Link>
+              <Link to="/solutions" className="btn-outline">
+                Explore Our Solutions <ArrowRight className="size-4" />
+              </Link>
+            </div>
+          </div>
+          <div className="relative flex items-center justify-center">
+            <img
+              src={heroAboutBanner}
+              alt="About AWT - Team and Global Innovation"
+              className="w-full max-w-[550px] object-contain animate-scale-in mix-blend-multiply"
+            />
+          </div>
+        </div>
+      </section>
 
       <AnimatedSection delay={0}>
         <section className="border-y border-border bg-white">

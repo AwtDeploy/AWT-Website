@@ -31,7 +31,7 @@ function HomePage() {
   return (
     <SiteLayout>
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-white via-surface to-white">
+      <section className="relative overflow-hidden" style={{ backgroundColor: "#FDFDFD" }}>
         <div className="container-page grid items-center gap-8 py-12 lg:grid-cols-2 lg:py-16">
           <div>
             <p className="eyebrow">Innovations for the New Gen</p>
@@ -59,7 +59,7 @@ function HomePage() {
             <img
               src={heroHomeBanner}
               alt="AWT Services - Cloud & DevOps, Cyber Security, AI & Automation, Data & Analytics, Software Engineering"
-              className="w-full max-w-[550px] rounded-2xl object-contain drop-shadow-lg animate-scale-in"
+              className="w-full max-w-[550px] object-contain animate-scale-in mix-blend-multiply"
             />
           </div>
         </div>
