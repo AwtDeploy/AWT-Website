@@ -40,11 +40,11 @@ export function PageHero({ eyebrow, title, subtitle, image, primary, secondary, 
           {children}
         </div>
         <div className="relative">
-          <div className="absolute -inset-4 rounded-3xl bg-brand/10 blur-2xl" aria-hidden="true" />
+          <div className="absolute -inset-4 rounded-3xl bg-brand/10 blur-2xl animate-pulse-glow" aria-hidden="true" />
           <img
             src={image}
             alt=""
-            className="relative w-full rounded-2xl border border-border object-cover shadow-xl"
+            className="relative w-full rounded-2xl border border-border object-cover shadow-xl animate-scale-in"
           />
         </div>
       </div>

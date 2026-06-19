@@ -4,6 +4,7 @@ import { SiteLayout } from "@/components/site/SiteLayout";
 import { PageHero } from "@/components/site/PageHero";
 import { SectionHeader } from "@/components/site/SectionHeader";
 import { AnimatedWords } from "@/components/site/AnimatedWords";
+import { AnimatedSection } from "@/components/site/AnimatedSection";
 import {
   APPROACH_STEPS,
   ARTICLES,

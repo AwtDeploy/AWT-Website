@@ -43,7 +43,7 @@ export function SiteHeader() {
         </button>
       </div>
       {open && (
-        <div className="xl:hidden border-t border-border bg-white">
+        <div className="xl:hidden border-t border-border bg-white animate-slide-up">
           <nav className="container-page flex flex-col py-3">
             {NAV_ITEMS.map((item) => (
               <Link
