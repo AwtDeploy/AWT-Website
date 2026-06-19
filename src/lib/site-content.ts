@@ -442,16 +442,21 @@ export const CONTACT_CARDS: ContactCard[] = [
   },
 ];
 
+import bglrLoc from "@/assets/bglr loc image.jpg";
+import hydLoc from "@/assets/hyd loc image.jpg";
+
 export const OFFICES = [
   {
     city: "Bengaluru (HQ)",
     country: "India",
     address: "NO.1, 1ST FLOOR, KVN COMPLEX, T C PALYA MAIN ROAD, DOORAVANI NAGAR, RAMAMURTHY NAGAR, Bangalore, Karnataka, India 560036",
+    image: bglrLoc,
   },
   {
     city: "Hyderabad",
     country: "India",
     address: "Sy No 83/1, T Hub Foundation, Plot No 1/C, Knowledge City Rd, Silpa Gram Craft Village, Madhapur,\nRai Durg, Hyderabad, Telangana 500032",
+    image: hydLoc,
   },
 ];
 

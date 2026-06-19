@@ -120,7 +120,11 @@ function ContactPage() {
           <div className="mx-auto mt-8 grid max-w-4xl gap-5 sm:grid-cols-2">
             {OFFICES.map((o) => (
               <div key={o.city} className="overflow-hidden rounded-2xl border border-border bg-white shadow-sm">
-                <div className="aspect-[16/9] bg-gradient-to-br from-[#1a1a1f] via-brand-strong to-brand" />
+                {o.image ? (
+                  <img src={o.image} alt={o.city} className="aspect-[16/9] w-full object-cover" />
+                ) : (
+                  <div className="aspect-[16/9] bg-gradient-to-br from-[#1a1a1f] via-brand-strong to-brand" />
+                )}
                 <div className="p-5">
                   <div className="text-brand text-sm font-semibold">{o.city}</div>
                   <div className="text-xs font-medium text-ink-soft">{o.country}</div>
