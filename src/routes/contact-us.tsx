@@ -23,6 +23,27 @@ export const Route = createFileRoute("/contact-us")({
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const name = formData.get("name") || "";
+    const email = formData.get("email") || "";
+    const company = formData.get("company") || "";
+    const phone = formData.get("phone") || "";
+    const helpType = formData.get("helpType") || "";
+    const message = formData.get("message") || "";
+
+    const subject = encodeURIComponent(`Contact from ${name} - ${helpType}`);
+    const body = encodeURIComponent(
+      `Full Name: ${name}\nEmail: ${email}\nCompany: ${company}\nPhone: ${phone}\nHelp Type: ${helpType}\n\nMessage:\n${message}`
+    );
+
+    window.open(`mailto:hello@angadiworldtech.com?subject=${subject}&body=${body}`, "_blank");
+    setSent(true);
+  };
   return (
     <SiteLayout>
       {/* Hero Section */}
@@ -71,16 +92,16 @@ function ContactPage() {
               <h2 className="text-2xl font-bold text-ink">Send Us a Message</h2>
               <p className="mt-1 text-sm text-ink-soft">Fill out the form and our team will get back to you shortly.</p>
               <form
-                onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+                onSubmit={handleSubmit}
                 className="mt-6 grid gap-4 sm:grid-cols-2"
               >
-                <Field label="Full Name" required />
-                <Field label="Work Email" type="email" required />
-                <Field label="Company Name" />
-                <Field label="Phone Number" />
+                <Field label="Full Name" name="name" required />
+                <Field label="Work Email" name="email" type="email" required />
+                <Field label="Company Name" name="company" />
+                <Field label="Phone Number" name="phone" />
                 <div className="sm:col-span-2">
                   <label className="text-xs font-semibold text-ink-soft">How can we help you?</label>
-                  <select className="mt-1 w-full rounded-lg border border-border bg-white px-3 py-2.5 text-sm">
+                  <select name="helpType" className="mt-1 w-full rounded-lg border border-border bg-white px-3 py-2.5 text-sm">
                     <option>Solutions and services</option>
                     <option>Product enquiry</option>
                     <option>Innovation partnership</option>
@@ -90,7 +111,7 @@ function ContactPage() {
                 </div>
                 <div className="sm:col-span-2">
                   <label className="text-xs font-semibold text-ink-soft">Tell us more about your requirement</label>
-                  <textarea rows={4} className="mt-1 w-full rounded-lg border border-border bg-white px-3 py-2.5 text-sm" />
+                  <textarea name="message" rows={4} className="mt-1 w-full rounded-lg border border-border bg-white px-3 py-2.5 text-sm" />
                 </div>
                 <div className="sm:col-span-2">
                   <button className="btn-primary" type="submit">
@@ -152,11 +173,12 @@ function ContactPage() {
   );
 }
 
-function Field({ label, type = "text", required }: { label: string; type?: string; required?: boolean }) {
+function Field({ label, name, type = "text", required }: { label: string; name: string; type?: string; required?: boolean }) {
   return (
     <div>
       <label className="text-xs font-semibold text-ink-soft">{label}{required && " *"}</label>
       <input
+        name={name}
         type={type}
         required={required}
         className="mt-1 w-full rounded-lg border border-border bg-white px-3 py-2.5 text-sm focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30"
