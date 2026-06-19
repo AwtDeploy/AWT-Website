@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
-import { PageHero } from "@/components/site/PageHero";
 import { SectionHeader } from "@/components/site/SectionHeader";
 import { AnimatedWords } from "@/components/site/AnimatedWords";
 import { AnimatedSection } from "@/components/site/AnimatedSection";
@@ -14,7 +13,7 @@ import {
   PRODUCTS,
   ROUTE_META,
 } from "@/lib/site-content";
-import heroHome from "@/assets/hero-home.jpg";
+import heroHomeBanner from "@/assets/hero-home-banner.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -31,28 +30,40 @@ export const Route = createFileRoute("/")({
 function HomePage() {
   return (
     <SiteLayout>
-      <PageHero
-        dark
-        eyebrow="Innovations for the New Gen"
-        title={
-          <>
-            <AnimatedWords text="Engineering" className="text-white" startDelay={0.2} />{" "}
-            <AnimatedWords text="Intelligent" className="text-white" startDelay={0.2} />{" "}
-            <AnimatedWords text="Enterprises." className="text-brand" startDelay={0.2} />
-          </>
-        }
-        subtitle=""
-        image={heroHome}
-        primary={{ label: "Describe Your Challenge", to: "/contact-us" }}
-        secondary={{ label: "Explore Solutions", to: "/solutions" }}
-      >
-        <p className="mt-4 max-w-xl text-base leading-relaxed text-white/70">
-          <AnimatedWords
-            text="Helping organizations transform through AI, Cloud, Software Engineering, Automation, and Enterprise Innovation."
-            startDelay={1.0}
-          />
-        </p>
-      </PageHero>
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-white via-surface to-white">
+        <div className="container-page grid items-center gap-8 py-12 lg:grid-cols-2 lg:py-16">
+          <div>
+            <p className="eyebrow">Innovations for the New Gen</p>
+            <h1 className="mt-3 text-4xl font-bold leading-tight text-ink md:text-5xl lg:text-[3.4rem]">
+              <AnimatedWords text="Engineering" className="text-ink" startDelay={0.2} />{" "}
+              <AnimatedWords text="Intelligent" className="text-ink" startDelay={0.2} />{" "}
+              <AnimatedWords text="Enterprises." className="text-brand" startDelay={0.2} />
+            </h1>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-soft">
+              <AnimatedWords
+                text="Helping organizations transform through AI, Cloud, Software Engineering, Automation, and Enterprise Innovation."
+                startDelay={1.0}
+              />
+            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <Link to="/contact-us" className="btn-primary">
+                Describe Your Challenge <ArrowRight className="size-4" />
+              </Link>
+              <Link to="/solutions" className="btn-outline">
+                Explore Solutions <ArrowRight className="size-4" />
+              </Link>
+            </div>
+          </div>
+          <div className="relative flex items-center justify-center">
+            <img
+              src={heroHomeBanner}
+              alt="AWT Services - Cloud & DevOps, Cyber Security, AI & Automation, Data & Analytics, Software Engineering"
+              className="w-full max-w-[550px] rounded-2xl object-contain drop-shadow-lg animate-scale-in"
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Metrics */}
       <AnimatedSection delay={0}>
