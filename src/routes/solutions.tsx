@@ -6,7 +6,7 @@ import { SectionHeader } from "@/components/site/SectionHeader";
 import { AnimatedWords } from "@/components/site/AnimatedWords";
 import { AnimatedSection } from "@/components/site/AnimatedSection";
 import { APPROACH_STEPS, ROUTE_META, SOLUTION_PILLARS, TECHNOLOGIES } from "@/lib/site-content";
-import heroSolutions from "@/assets/hero-solutions.jpg";
+import heroSolutionsBanner from "@/assets/hero-solutions-banner.png";
 
 export const Route = createFileRoute("/solutions")({
   head: () => ({
@@ -23,28 +23,42 @@ export const Route = createFileRoute("/solutions")({
 function SolutionsPage() {
   return (
     <SiteLayout>
-      <PageHero
-        dark
-        eyebrow="Our Solutions"
-        title={<>
-          <AnimatedWords text="Solutions" className="text-white" startDelay={0.2} />{" "}
-          <AnimatedWords text="that" className="text-white" startDelay={0.2} />{" "}
-          <AnimatedWords text="Power" className="text-white" startDelay={0.2} />{" "}
-          <AnimatedWords text="Intelligent" className="text-brand" startDelay={0.6} />{" "}
-          <AnimatedWords text="Enterprises." className="text-brand" startDelay={0.6} />
-        </>}
-        subtitle=""
-        image={heroSolutions}
-        primary={{ label: "Talk to Our Experts", to: "/contact-us" }}
-        secondary={{ label: "Explore All Solutions", to: "/solutions" }}
-      >
-        <p className="mt-4 max-w-xl text-base leading-relaxed text-white/70">
-          <AnimatedWords
-            text="End-to-end technology solutions that help businesses modernize, automate, and scale with confidence. From strategy to execution, we engineer solutions that create real business impact."
-            startDelay={1.0}
-          />
-        </p>
-      </PageHero>
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-white">
+        <div className="container-page grid items-center gap-8 py-12 lg:grid-cols-2 lg:py-16">
+          <div>
+            <p className="eyebrow text-brand">Our Solutions</p>
+            <h1 className="mt-3 text-4xl font-bold leading-tight text-ink md:text-5xl lg:text-[3.4rem]">
+              <AnimatedWords text="Solutions" className="text-ink" startDelay={0.2} />{" "}
+              <AnimatedWords text="that" className="text-ink" startDelay={0.2} />{" "}
+              <AnimatedWords text="Power" className="text-ink" startDelay={0.2} />{" "}
+              <AnimatedWords text="Intelligent" className="text-brand" startDelay={0.6} />{" "}
+              <AnimatedWords text="Enterprises." className="text-brand" startDelay={0.6} />
+            </h1>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-soft">
+              <AnimatedWords
+                text="End-to-end technology solutions that help businesses modernize, automate, and scale with confidence. From strategy to execution, we engineer solutions that create real business impact."
+                startDelay={1.0}
+              />
+            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <Link to="/contact-us" className="btn-primary">
+                Talk to Our Experts <ArrowRight className="size-4" />
+              </Link>
+              <Link to="/solutions" className="btn-outline">
+                Explore All Solutions <ArrowRight className="size-4" />
+              </Link>
+            </div>
+          </div>
+          <div className="relative flex items-center justify-center">
+            <img
+              src={heroSolutionsBanner}
+              alt="AWT Solutions - Cloud, Security, AI, Data, Analytics"
+              className="w-full max-w-[550px] object-contain animate-scale-in mix-blend-multiply"
+            />
+          </div>
+        </div>
+      </section>
 
       <AnimatedSection delay={0}>
         <section className="section">

@@ -31,7 +31,7 @@ function HomePage() {
   return (
     <SiteLayout>
       {/* Hero Section */}
-      <section className="relative overflow-hidden" style={{ backgroundColor: "#FDFDFD" }}>
+      <section className="relative overflow-hidden bg-white">
         <div className="container-page grid items-center gap-8 py-12 lg:grid-cols-2 lg:py-16">
           <div>
             <p className="eyebrow">Innovations for the New Gen</p>
