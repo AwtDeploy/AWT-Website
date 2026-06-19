@@ -6,7 +6,7 @@ import { SectionHeader } from "@/components/site/SectionHeader";
 import { AnimatedWords } from "@/components/site/AnimatedWords";
 import { AnimatedSection } from "@/components/site/AnimatedSection";
 import { FEATURED_SERIES, INSIGHT_TOPICS, ROUTE_META } from "@/lib/site-content";
-import heroInsights from "@/assets/hero-insights.jpg";
+import heroInsightsBanner from "@/assets/hero-insights-banner.png";
 
 export const Route = createFileRoute("/insights")({
   head: () => ({
@@ -23,27 +23,41 @@ export const Route = createFileRoute("/insights")({
 function InsightsPage() {
   return (
     <SiteLayout>
-      <PageHero
-        dark
-        eyebrow="Insights"
-        title={<>
-          <AnimatedWords text="Where" className="text-white" startDelay={0.2} />{" "}
-          <AnimatedWords text="Innovation" className="text-white" startDelay={0.2} />{" "}
-          <AnimatedWords text="Meets" className="text-white" startDelay={0.2} />{" "}
-          <AnimatedWords text="Perspective." className="text-brand" startDelay={0.6} />
-        </>}
-        subtitle=""
-        image={heroInsights}
-        primary={{ label: "Explore Insights", to: "/insights" }}
-        secondary={{ label: "Subscribe to Insights", to: "/contact-us" }}
-      >
-        <p className="mt-4 max-w-xl text-base leading-relaxed text-white/70">
-          <AnimatedWords
-            text="Innovation is not just about technology. It is about how you think about the future."
-            startDelay={0.8}
-          />
-        </p>
-      </PageHero>
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-white">
+        <div className="container-page grid items-center gap-8 py-8 lg:grid-cols-2 lg:py-12">
+          <div>
+            <p className="eyebrow text-brand">Insights</p>
+            <h1 className="mt-3 text-4xl font-bold leading-tight text-ink md:text-5xl lg:text-[3.4rem]">
+              <AnimatedWords text="Where" className="text-ink" startDelay={0.2} />{" "}
+              <AnimatedWords text="Innovation" className="text-ink" startDelay={0.2} />{" "}
+              <AnimatedWords text="Meets" className="text-ink" startDelay={0.2} />{" "}
+              <AnimatedWords text="Perspective." className="text-brand" startDelay={0.6} />
+            </h1>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-soft">
+              <AnimatedWords
+                text="Innovation is not just about technology. It is about how you think about the future."
+                startDelay={0.8}
+              />
+            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <Link to="/insights" className="btn-primary">
+                Explore Insights <ArrowRight className="size-4" />
+              </Link>
+              <Link to="/contact-us" className="btn-outline">
+                Subscribe to Insights <ArrowRight className="size-4" />
+              </Link>
+            </div>
+          </div>
+          <div className="relative flex items-center justify-center">
+            <img
+              src={heroInsightsBanner}
+              alt="Insights - Globe with magnifying glass and analytics icons"
+              className="w-full max-w-[550px] object-contain animate-scale-in mix-blend-multiply"
+            />
+          </div>
+        </div>
+      </section>
 
       <AnimatedSection delay={0}>
         <section className="section">
