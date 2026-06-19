@@ -148,28 +148,6 @@ function ContactPage() {
           </div>
         </section>
       </AnimatedSection>
-
-      <section className="bg-surface py-14">
-        <div className="container-page">
-          <SectionHeader align="center" eyebrow="Our Offices" title={<>Across Cities. <span className="text-brand">Closer to You.</span></>} />
-          <div className="mx-auto mt-8 grid max-w-4xl gap-5 sm:grid-cols-2">
-            {OFFICES.map((o) => (
-              <div key={o.city} className="overflow-hidden rounded-2xl border border-border bg-white shadow-sm">
-                {o.image ? (
-                  <img src={o.image} alt={o.city} className="aspect-[16/9] w-full object-cover" />
-                ) : (
-                  <div className="aspect-[16/9] bg-gradient-to-br from-[#1a1a1f] via-brand-strong to-brand" />
-                )}
-                <div className="p-5">
-                  <div className="text-brand text-sm font-semibold">{o.city}</div>
-                  <div className="text-xs font-medium text-ink-soft">{o.country}</div>
-                  <p className="mt-2 text-sm text-ink-soft">{o.address}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
     </SiteLayout>
   );
 }
