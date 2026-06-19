@@ -65,7 +65,7 @@ function ContactPage() {
       </section>
 
       <AnimatedSection delay={0}>
-        <section className="section">
+        <section className="py-8">
           <div className="container-page grid gap-10 lg:grid-cols-2">
             <div>
               <h2 className="text-2xl font-bold text-ink">Send Us a Message</h2>
