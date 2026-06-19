@@ -6,7 +6,7 @@ import { SectionHeader } from "@/components/site/SectionHeader";
 import { AnimatedWords } from "@/components/site/AnimatedWords";
 import { AnimatedSection } from "@/components/site/AnimatedSection";
 import { PRODUCTS, PRODUCT_BENEFITS, ROUTE_META, TECHNOLOGIES } from "@/lib/site-content";
-import heroProducts from "@/assets/hero-products.jpg";
+import heroProductsBanner from "@/assets/hero-products-banner.png";
 
 export const Route = createFileRoute("/products")({
   head: () => ({
@@ -23,27 +23,41 @@ export const Route = createFileRoute("/products")({
 function ProductsPage() {
   return (
     <SiteLayout>
-      <PageHero
-        dark
-        eyebrow="Our Products"
-        title={<>
-          <AnimatedWords text="Innovation" className="text-white" startDelay={0.2} />{" "}
-          <AnimatedWords text="in" className="text-white" startDelay={0.2} />{" "}
-          <AnimatedWords text="Every" className="text-white" startDelay={0.2} />{" "}
-          <AnimatedWords text="Solution." className="text-brand" startDelay={0.6} />
-        </>}
-        subtitle=""
-        image={heroProducts}
-        primary={{ label: "Explore Our Products", to: "/products" }}
-        secondary={{ label: "Talk to Our Experts", to: "/contact-us" }}
-      >
-        <p className="mt-4 max-w-xl text-base leading-relaxed text-white/70">
-          <AnimatedWords
-            text="Our proprietary products are built to solve real-world business challenges and drive efficiency, safety, and exceptional experiences."
-            startDelay={0.8}
-          />
-        </p>
-      </PageHero>
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-white">
+        <div className="container-page grid items-center gap-8 py-12 lg:grid-cols-2 lg:py-16">
+          <div>
+            <p className="eyebrow text-brand">Our Products</p>
+            <h1 className="mt-3 text-4xl font-bold leading-tight text-ink md:text-5xl lg:text-[3.4rem]">
+              <AnimatedWords text="Innovation" className="text-ink" startDelay={0.2} />{" "}
+              <AnimatedWords text="in" className="text-ink" startDelay={0.2} />{" "}
+              <AnimatedWords text="Every" className="text-ink" startDelay={0.2} />{" "}
+              <AnimatedWords text="Solution." className="text-brand" startDelay={0.6} />
+            </h1>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-soft">
+              <AnimatedWords
+                text="Our proprietary products are built to solve real-world business challenges and drive efficiency, safety, and exceptional experiences."
+                startDelay={0.8}
+              />
+            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <Link to="/products" className="btn-primary">
+                Explore Our Products <ArrowRight className="size-4" />
+              </Link>
+              <Link to="/contact-us" className="btn-outline">
+                Talk to Our Experts <ArrowRight className="size-4" />
+              </Link>
+            </div>
+          </div>
+          <div className="relative flex items-center justify-center">
+            <img
+              src={heroProductsBanner}
+              alt="AWT Products - Globe with connected devices and platforms"
+              className="w-full max-w-[550px] object-contain animate-scale-in mix-blend-multiply"
+            />
+          </div>
+        </div>
+      </section>
 
       <AnimatedSection delay={0}>
         <section className="section">
