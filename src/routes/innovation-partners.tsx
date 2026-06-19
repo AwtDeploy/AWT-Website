@@ -31,7 +31,7 @@ function InnovationPartnersPage() {
     <SiteLayout>
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-white">
-        <div className="container-page grid items-center gap-8 py-12 lg:grid-cols-2 lg:py-16">
+        <div className="container-page grid items-center gap-8 py-8 lg:grid-cols-2 lg:py-12">
           <div>
             <p className="eyebrow text-brand">Innovation Partners</p>
             <h1 className="mt-3 text-4xl font-bold leading-tight text-ink md:text-5xl lg:text-[3.4rem]">
