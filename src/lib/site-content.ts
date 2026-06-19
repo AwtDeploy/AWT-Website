@@ -451,7 +451,7 @@ export const OFFICES = [
   {
     city: "Hyderabad",
     country: "India",
-    address: "7th Floor, Vasavi MPM Grand, Ameerpet, Hyderabad - 500016, Telangana, India",
+    address: "Sy No 83/1, T Hub Foundation, Plot No 1/C, Knowledge City Rd, Silpa Gram Craft Village, Madhapur,\nRai Durg, Hyderabad, Telangana 500032",
   },
 ];
 
