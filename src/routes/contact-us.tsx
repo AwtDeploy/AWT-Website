@@ -7,7 +7,7 @@ import { SectionHeader } from "@/components/site/SectionHeader";
 import { AnimatedWords } from "@/components/site/AnimatedWords";
 import { AnimatedSection } from "@/components/site/AnimatedSection";
 import { COMPANY, CONTACT_CARDS, OFFICES, ROUTE_META } from "@/lib/site-content";
-import heroContact from "@/assets/hero-contact.jpg";
+import heroContactBanner from "@/assets/hero-contact-banner.png";
 
 export const Route = createFileRoute("/contact-us")({
   head: () => ({
@@ -25,36 +25,44 @@ function ContactPage() {
   const [sent, setSent] = useState(false);
   return (
     <SiteLayout>
-      <PageHero
-        dark
-        eyebrow="Contact Us"
-        title={<>
-          <AnimatedWords text="Let's" className="text-white" startDelay={0.2} />{" "}
-          <AnimatedWords text="Build" className="text-white" startDelay={0.2} /><br />
-          <AnimatedWords text="What's" className="text-brand" startDelay={0.5} />{" "}
-          <AnimatedWords text="Next." className="text-brand" startDelay={0.5} />
-        </>}
-        subtitle=""
-        image={heroContact}
-      >
-        <p className="mt-4 max-w-xl text-base leading-relaxed text-white/70">
-          <AnimatedWords
-            text="Have a question, an idea, or a challenge? We're here to listen and help you turn possibilities into impact."
-            startDelay={0.8}
-          />
-        </p>
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
-          {CONTACT_CARDS.map((c) => (
-            <a key={c.title} href={c.title === "Call us" ? COMPANY.phoneHref : COMPANY.emailHref} className="flex items-center gap-3 rounded-xl border border-white/15 bg-white/10 p-4">
-              <span className="icon-chip shrink-0"><c.icon className="size-5" /></span>
-              <div className="min-w-0">
-                <div className="text-xs font-semibold uppercase tracking-wider text-white/60">{c.title}</div>
-                <div className="text-sm font-semibold text-white">{c.value}</div>
-              </div>
-            </a>
-          ))}
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-white">
+        <div className="container-page grid items-center gap-8 py-8 lg:grid-cols-2 lg:py-12">
+          <div>
+            <p className="eyebrow text-brand">Contact Us</p>
+            <h1 className="mt-3 text-4xl font-bold leading-tight text-ink md:text-5xl lg:text-[3.4rem]">
+              <AnimatedWords text="Let's" className="text-ink" startDelay={0.2} />{" "}
+              <AnimatedWords text="Build" className="text-ink" startDelay={0.2} /><br />
+              <AnimatedWords text="What's" className="text-brand" startDelay={0.5} />{" "}
+              <AnimatedWords text="Next." className="text-brand" startDelay={0.5} />
+            </h1>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-soft">
+              <AnimatedWords
+                text="Have a question, an idea, or a challenge? We're here to listen and help you turn possibilities into impact."
+                startDelay={0.8}
+              />
+            </p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              {CONTACT_CARDS.map((c) => (
+                <a key={c.title} href={c.title === "Call us" ? COMPANY.phoneHref : COMPANY.emailHref} className="flex items-center gap-3 rounded-xl border border-border bg-surface p-4">
+                  <span className="icon-chip shrink-0"><c.icon className="size-5" /></span>
+                  <div className="min-w-0">
+                    <div className="text-xs font-semibold uppercase tracking-wider text-ink-soft">{c.title}</div>
+                    <div className="text-sm font-semibold text-ink">{c.value}</div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+          <div className="relative flex items-center justify-center">
+            <img
+              src={heroContactBanner}
+              alt="Contact AWT - Let's Connect"
+              className="w-full max-w-[550px] object-contain animate-scale-in mix-blend-multiply"
+            />
+          </div>
         </div>
-      </PageHero>
+      </section>
 
       <AnimatedSection delay={0}>
         <section className="section">
