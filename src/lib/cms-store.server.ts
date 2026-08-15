@@ -15,8 +15,8 @@ const SESSION_COOKIE = "awt_cms_session";
 const SESSION_DAYS = 7;
 const JOBS_RELATIVE_PATH = "data/jobs.json";
 
-const DEFAULT_USERNAME = "awtadmin";
-const DEFAULT_PASSWORD = "AWT#Careers2026";
+const DEFAULT_USERNAME = "AWT Careers";
+const DEFAULT_PASSWORD = "OrangeQr#Talent360";
 
 let memoryJobs: JobOpening[] | null = null;
 let lastPersistence: JobPersistence = "memory";
