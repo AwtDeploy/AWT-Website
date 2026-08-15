@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <rect width="640" height="360" rx="36" fill="#08101f"/>
+  <rect x="74" y="66" width="492" height="220" rx="24" fill="#111b2d" stroke="#2a5bff"/>
+  <rect x="110" y="105" width="185" height="24" rx="12" fill="#ff7143"/>
+  <rect x="110" y="153" width="390" height="14" rx="7" fill="#71a7ff"/>
+  <rect x="110" y="190" width="300" height="14" rx="7" fill="#71a7ff" opacity=".7"/>
+  <path d="M245 245l-50-40 50-40M395 165l50 40-50 40" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="74" y="322" fill="#fff" font-family="Arial" font-size="30" font-weight="700">Software Engineering</text>
+</svg>

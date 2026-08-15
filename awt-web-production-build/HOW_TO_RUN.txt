@@ -1,0 +1,16 @@
+﻿AWT Website - Production Build
+==============================
+
+Requirements: Node.js 18 or newer
+
+How to run:
+1. Unzip this folder
+2. Open a terminal in the unzipped folder
+3. Run: node server.js
+4. Open http://localhost:3000 in your browser
+
+Optional environment variables:
+- PORT=3000 (default)
+- HOSTNAME=0.0.0.0 (to listen on all network interfaces)
+
+Built: 2026-07-06 13.48

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <rect width="640" height="360" rx="36" fill="#120b22"/>
+  <circle cx="320" cy="165" r="82" fill="#241340" stroke="#8d62ff" stroke-width="8"/>
+  <circle cx="320" cy="165" r="34" fill="#ff7143"/>
+  <path d="M320 61v-30M320 299v-30M216 165h-32M456 165h-32M247 92l-22-22M415 239l-22-22M247 238l-22 22M415 91l-22 22" stroke="#fff" stroke-width="10" stroke-linecap="round"/>
+  <rect x="82" y="96" width="120" height="92" rx="18" fill="#20143a" stroke="#8d62ff"/>
+  <rect x="438" y="96" width="120" height="92" rx="18" fill="#20143a" stroke="#8d62ff"/>
+  <text x="82" y="292" fill="#fff" font-family="Arial" font-size="30" font-weight="700">AI &amp; Automation</text>
+</svg>

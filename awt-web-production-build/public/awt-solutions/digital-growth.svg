@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <rect width="640" height="360" rx="36" fill="#1a0d07"/>
+  <path d="M112 250h416" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity=".35"/>
+  <rect x="150" y="190" width="55" height="60" rx="10" fill="#ffb088"/>
+  <rect x="245" y="145" width="55" height="105" rx="10" fill="#ff7143"/>
+  <rect x="340" y="105" width="55" height="145" rx="10" fill="#ff8e54"/>
+  <rect x="435" y="70" width="55" height="180" rx="10" fill="#ffd1bd"/>
+  <path d="M140 116c80 12 132-22 188-38 64-19 112-5 164 26" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <text x="110" y="318" fill="#fff" font-family="Arial" font-size="30" font-weight="700">Digital Growth</text>
+</svg>

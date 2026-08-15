@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <rect width="640" height="360" rx="36" fill="#091018"/>
+  <path d="M320 48l142 50v96c0 83-58 137-142 166-84-29-142-83-142-166V98z" fill="#102236" stroke="#ff7143" stroke-width="9"/>
+  <rect x="268" y="153" width="104" height="90" rx="14" fill="#fff"/>
+  <path d="M290 153v-28c0-18 13-36 30-36s30 18 30 36v28" stroke="#fff" stroke-width="18" stroke-linecap="round" fill="none"/>
+  <circle cx="320" cy="195" r="12" fill="#ff7143"/>
+  <text x="110" y="318" fill="#fff" font-family="Arial" font-size="30" font-weight="700">Cyber Security</text>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <rect width="640" height="360" rx="36" fill="#07111c"/>
+  <circle cx="500" cy="80" r="95" fill="#ff7143" opacity=".16"/>
+  <rect x="68" y="72" width="220" height="150" rx="18" fill="#10283d" stroke="#1f8fbf"/>
+  <path d="M96 190h166M96 158h118M96 126h144" stroke="#58d7ff" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="430" cy="190" r="68" fill="#0d3747" stroke="#ff7143" stroke-width="8"/>
+  <path d="M393 190h74M430 153v74" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
+  <path d="M288 147c54 0 65 44 104 44" stroke="#ff7143" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <text x="70" y="288" fill="#fff" font-family="Arial" font-size="30" font-weight="700">Digital Transformation</text>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <rect width="640" height="360" rx="36" fill="#071321"/>
+  <path d="M185 210h270c47 0 85-32 85-75s-38-75-85-75c-19 0-37 5-51 15-24-31-66-51-114-51-70 0-128 43-135 98-43 6-75 42-75 86 0 48 39 86 105 86z" fill="#0e3a56" stroke="#5bdcff" stroke-width="8"/>
+  <path d="M235 232v42M320 232v62M405 232v42" stroke="#ff7143" stroke-width="12" stroke-linecap="round"/>
+  <rect x="192" y="285" width="256" height="30" rx="15" fill="#ff7143"/>
+  <text x="78" y="320" fill="#fff" font-family="Arial" font-size="30" font-weight="700">Cloud &amp; Infrastructure</text>
+</svg>
