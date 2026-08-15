@@ -6,23 +6,19 @@ import { SectionHeader } from "@/components/site/SectionHeader";
 import { AnimatedWords } from "@/components/site/AnimatedWords";
 import { AnimatedSection } from "@/components/site/AnimatedSection";
 import { APPROACH_STEPS, ROUTE_META, SOLUTION_PILLARS, TECHNOLOGIES } from "@/lib/site-content";
+import { pageHead, serviceJsonLd } from "@/lib/seo";
+import { JsonLd } from "@/components/site/JsonLd";
 import heroSolutionsBanner from "@/assets/hero-solutions-banner.png";
 
 export const Route = createFileRoute("/solutions")({
-  head: () => ({
-    meta: [
-      { title: ROUTE_META.solutions.title },
-      { name: "description", content: ROUTE_META.solutions.description },
-      { property: "og:title", content: ROUTE_META.solutions.title },
-      { property: "og:description", content: ROUTE_META.solutions.description },
-    ],
-  }),
+  head: () => pageHead({ title: ROUTE_META.solutions.title, description: ROUTE_META.solutions.description, path: "/solutions" }),
   component: SolutionsPage,
 });
 
 function SolutionsPage() {
   return (
     <SiteLayout>
+      <JsonLd data={serviceJsonLd("AWT Enterprise Solutions", ROUTE_META.solutions.description, "/solutions")} />
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-white">
         <div className="container-page grid items-center gap-8 py-12 lg:grid-cols-2 lg:py-16">
@@ -70,13 +66,25 @@ function SolutionsPage() {
               description="We combine deep technical expertise with industry knowledge to deliver solutions that solve today's challenges and prepare for tomorrow's opportunities."
             />
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {SOLUTION_PILLARS.map((s) => (
-                <div key={s.title} className="card-soft p-6">
-                  <span className="icon-chip"><s.icon className="size-5" /></span>
-                  <h3 className="mt-4 font-semibold text-ink">{s.title}</h3>
-                  <p className="mt-1.5 text-sm text-ink-soft">{s.description}</p>
-                </div>
-              ))}
+              {SOLUTION_PILLARS.map((s) => {
+                const card = (
+                  <>
+                    <span className="icon-chip"><s.icon className="size-5" /></span>
+                    <h3 className="mt-4 font-semibold text-ink">{s.title}</h3>
+                    <p className="mt-1.5 text-sm text-ink-soft">{s.description}</p>
+                    {s.href ? <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-brand">Learn more <ArrowRight className="size-4" /></span> : null}
+                  </>
+                );
+                return s.href ? (
+                  <a key={s.title} href={s.href} className="card-soft block p-6">
+                    {card}
+                  </a>
+                ) : (
+                  <div key={s.title} className="card-soft p-6">
+                    {card}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>

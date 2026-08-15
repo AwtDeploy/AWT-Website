@@ -35,8 +35,10 @@ import {
   Megaphone,
   Search,
   Layers3,
+  QrCode,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { DEFAULT_JOBS } from "@/lib/jobs";
 import articleAi from "@/assets/hero-insights.jpg";
 import articleCloud from "@/assets/hero-solutions.jpg";
 import articleTransform from "@/assets/hero-home.jpg";
@@ -64,6 +66,7 @@ export interface FeatureCard {
   title: string;
   description: string;
   icon: LucideIcon;
+  href?: string;
 }
 
 export interface Industry {
@@ -128,34 +131,46 @@ export const METRICS: Metric[] = [
 
 export const HOME_SOLUTIONS: FeatureCard[] = [
   {
+    title: "QR Technology customized services",
+    description: "Industry-specific QR programs that tie a scan to the right record, role, and next action across plants, hospitals, stores, and field teams.",
+    icon: QrCode,
+    href: "/solutions/qr-technology",
+  },
+  {
     title: "Digital Transformation",
     description: "Reimagine business models, workflows, and customer journeys with practical transformation roadmaps.",
     icon: LayoutGrid,
+    href: "/solutions",
   },
   {
     title: "Software Engineering",
     description: "Build secure, scalable applications with modern architecture, performance focus, and strong delivery governance.",
     icon: Code2,
+    href: "/solutions",
   },
   {
     title: "AI & Automation",
     description: "Design intelligent workflows, decision support systems, and automation layers that improve outcomes.",
     icon: Brain,
+    href: "/solutions",
   },
   {
     title: "Cloud & DevOps",
     description: "Modernize infrastructure, delivery pipelines, and observability to support resilient growth.",
     icon: Cloud,
+    href: "/solutions",
   },
   {
     title: "Cyber Security",
     description: "Protect critical systems with assessment, defense, monitoring, and enterprise-ready governance controls.",
     icon: ShieldCheck,
+    href: "/solutions",
   },
   {
     title: "Managed Services",
     description: "Extend your team with dependable operational support across platforms, users, and mission-critical systems.",
     icon: Users,
+    href: "/solutions",
   },
 ];
 
@@ -265,6 +280,12 @@ export const ABOUT_PRINCIPLES = [
 
 export const SOLUTION_PILLARS: FeatureCard[] = [
   {
+    title: "QR Technology customized services",
+    description: "Fit QR identifiers, scan paths, and system write-back to manufacturing, healthcare, retail, logistics, government, and education—not a generic sticker program.",
+    icon: QrCode,
+    href: "/solutions/qr-technology",
+  },
+  {
     title: "Digital Transformation",
     description: "Modern operating models, platform strategy, and execution for changing enterprise demands.",
     icon: Layers3,
@@ -317,6 +338,7 @@ export const TECHNOLOGIES = [
   "Docker",
   "Kubernetes",
   "Terraform",
+  "PostgreSQL",
   "MongoDB",
   "GitLab",
 ];
@@ -404,13 +426,12 @@ export const CAREER_BENEFITS: FeatureCard[] = [
   },
 ];
 
-export const JOBS: JobRole[] = [
-  { title: "Senior Full Stack Developer", department: "Engineering", location: "Hyderabad, India", type: "Full-time" },
-  { title: "AI/ML Engineer", department: "Engineering", location: "Bengaluru, India", type: "Full-time" },
-  { title: "Cloud DevOps Engineer", department: "Engineering", location: "Hyderabad, India", type: "Full-time" },
-  { title: "Product Manager", department: "Product", location: "Hyderabad, India", type: "Full-time" },
-  { title: "UI/UX Designer", department: "Design", location: "Bengaluru, India", type: "Full-time" },
-];
+export const JOBS: JobRole[] = DEFAULT_JOBS.map(({ title, department, location, type }) => ({
+  title,
+  department,
+  location,
+  type,
+}));
 
 export const INNOVATION_MODELS = [
   "Strategic investment",
@@ -469,6 +490,7 @@ export const FOOTER_LINKS = {
     { label: "Contact Us", to: "/contact-us" },
   ],
   solutions: [
+    { label: "QR Technology", to: "/solutions/qr-technology" },
     { label: "Digital Transformation", to: "/solutions" },
     { label: "Software Engineering", to: "/solutions" },
     { label: "AI & Automation", to: "/solutions" },
@@ -515,8 +537,12 @@ export const ROUTE_META = {
     description: "Discover AWT, its founder-led journey, global delivery model, and the people-first approach behind its technology and innovation services.",
   },
   solutions: {
-    title: "Enterprise Solutions | Software, Cloud, AI & Managed IT | AWT",
-    description: "Explore AWT solutions across digital transformation, software engineering, cloud, AI, cyber security, consulting, and managed services.",
+    title: "Enterprise Solutions | QR, Software, Cloud, AI & Managed IT | AWT",
+    description: "Explore AWT solutions across QR technology, digital transformation, software engineering, cloud, AI, cyber security, consulting, and managed services.",
+  },
+  qrTechnology: {
+    title: "QR Technology Customized Services | Industry-Specific QR Systems | AWT",
+    description: "AWT builds industry-specific QR programs for manufacturing, healthcare, retail, logistics, government, and education—codes that update the systems you already run.",
   },
   products: {
     title: "Innovation Products | SafeRide 360, Job Streamers & Venuvo | AWT",

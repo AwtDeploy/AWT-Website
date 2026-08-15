@@ -6,17 +6,11 @@ import { SectionHeader } from "@/components/site/SectionHeader";
 import { AnimatedWords } from "@/components/site/AnimatedWords";
 import { AnimatedSection } from "@/components/site/AnimatedSection";
 import { PRODUCTS, PRODUCT_BENEFITS, ROUTE_META, TECHNOLOGIES } from "@/lib/site-content";
+import { pageHead } from "@/lib/seo";
 import heroProductsBanner from "@/assets/hero-products-banner.png";
 
 export const Route = createFileRoute("/products")({
-  head: () => ({
-    meta: [
-      { title: ROUTE_META.products.title },
-      { name: "description", content: ROUTE_META.products.description },
-      { property: "og:title", content: ROUTE_META.products.title },
-      { property: "og:description", content: ROUTE_META.products.description },
-    ],
-  }),
+  head: () => pageHead({ title: ROUTE_META.products.title, description: ROUTE_META.products.description, path: "/products" }),
   component: ProductsPage,
 });
 

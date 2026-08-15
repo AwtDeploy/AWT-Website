@@ -1,29 +1,42 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
-import { PageHero } from "@/components/site/PageHero";
 import { SectionHeader } from "@/components/site/SectionHeader";
 import { AnimatedWords } from "@/components/site/AnimatedWords";
 import { AnimatedSection } from "@/components/site/AnimatedSection";
-import { CAREER_BENEFITS, JOBS, ROUTE_META } from "@/lib/site-content";
+import { CAREER_BENEFITS, ROUTE_META } from "@/lib/site-content";
+import { getPublicJobsFn } from "@/lib/cms";
+import type { JobOpening } from "@/lib/jobs";
+import { pageHead, jobPostingJsonLd } from "@/lib/seo";
+import { JsonLd } from "@/components/site/JsonLd";
 import heroCareersBanner from "@/assets/hero-careers-banner.png";
 
 export const Route = createFileRoute("/careers")({
-  head: () => ({
-    meta: [
-      { title: ROUTE_META.careers.title },
-      { name: "description", content: ROUTE_META.careers.description },
-      { property: "og:title", content: ROUTE_META.careers.title },
-      { property: "og:description", content: ROUTE_META.careers.description },
-    ],
-  }),
+  head: () => pageHead({ title: ROUTE_META.careers.title, description: ROUTE_META.careers.description, path: "/careers" }),
+  loader: () => getPublicJobsFn(),
   component: CareersPage,
 });
 
+function ApplyLink({ job }: { job: JobOpening }) {
+  const href = job.applyUrl || "/contact-us";
+  const external = /^https?:/i.test(href);
+  return (
+    <a
+      href={href}
+      className="inline-flex items-center gap-2 text-sm font-semibold text-brand"
+      {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+    >
+      Apply Now <ArrowRight className="size-4" />
+    </a>
+  );
+}
+
 function CareersPage() {
+  const jobs = Route.useLoaderData();
+
   return (
     <SiteLayout>
-      {/* Hero Section */}
+      {jobs.length ? <JsonLd data={jobs.map(jobPostingJsonLd)} /> : null}
       <section className="relative overflow-hidden bg-white">
         <div className="container-page grid items-center gap-8 py-8 lg:grid-cols-2 lg:py-12">
           <div>
@@ -43,9 +56,9 @@ function CareersPage() {
               />
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <Link to="/careers" className="btn-primary">
+              <a href="#openings" className="btn-primary">
                 Explore Opportunities <ArrowRight className="size-4" />
-              </Link>
+              </a>
               <Link to="/about-us" className="btn-outline">
                 Life at AWT <ArrowRight className="size-4" />
               </Link>
@@ -79,20 +92,28 @@ function CareersPage() {
       </AnimatedSection>
 
       <AnimatedSection delay={100}>
-        <section className="bg-surface py-14">
+        <section id="openings" className="bg-surface py-14">
           <div className="container-page">
             <SectionHeader align="center" eyebrow="Explore Opportunities" title={<>Find the Role That <span className="text-brand">Fits You.</span></>} />
             <div className="mt-8 overflow-hidden rounded-2xl border border-border bg-white">
-              {JOBS.map((j, i) => (
-                <div key={j.title} className={`grid items-center gap-3 p-4 md:grid-cols-5 ${i ? "border-t border-border" : ""}`}>
-                  <div className="font-semibold text-ink md:col-span-2">{j.title}</div>
-                  <div className="text-sm text-ink-soft">{j.department}</div>
-                  <div className="text-sm text-ink-soft">{j.location}</div>
-                  <Link to="/contact-us" className="inline-flex items-center gap-2 text-sm font-semibold text-brand">
-                    Apply Now <ArrowRight className="size-4" />
-                  </Link>
-                </div>
-              ))}
+              {jobs.length === 0 ? (
+                <p className="p-8 text-center text-sm text-ink-soft">
+                  There are no open roles right now. Share your profile below and we will reach out when a match comes up.
+                </p>
+              ) : (
+                jobs.map((job, index) => (
+                  <div key={job.id} className={`grid items-center gap-3 p-4 md:grid-cols-6 ${index ? "border-t border-border" : ""}`}>
+                    <div className="md:col-span-2">
+                      <div className="font-semibold text-ink">{job.title}</div>
+                      {job.description ? <p className="mt-1 text-sm text-ink-soft">{job.description}</p> : null}
+                    </div>
+                    <div className="text-sm text-ink-soft">{job.department}</div>
+                    <div className="text-sm text-ink-soft">{job.location}</div>
+                    <div className="text-sm text-ink-soft">{job.type}</div>
+                    <ApplyLink job={job} />
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </section>
@@ -106,57 +127,28 @@ function CareersPage() {
               <h2 className="mt-2 text-3xl font-bold text-ink">We're Always Looking for <span className="text-brand">Great Minds.</span></h2>
               <p className="mt-2 text-ink-soft">Share your profile with us and we will reach out when the right opportunity comes along.</p>
             </div>
-            <form className="flex flex-col gap-2 sm:flex-row">
+            <form
+              className="flex flex-col gap-2 sm:flex-row"
+              onSubmit={(event) => {
+                event.preventDefault();
+                const email = new FormData(event.currentTarget).get("email");
+                window.location.href = `mailto:hello@angadiworldtech.com?subject=${encodeURIComponent("Open profile")}&body=${encodeURIComponent(`Email: ${email}`)}`;
+              }}
+            >
               <input
                 type="email"
+                name="email"
+                required
                 placeholder="Enter your email"
                 className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm text-ink placeholder:text-ink-soft focus:outline-none focus:ring-2 focus:ring-brand/30"
               />
-              <button className="inline-flex items-center gap-2 rounded-lg bg-brand px-5 py-3 text-sm font-semibold text-white hover:bg-brand-strong">
+              <button type="submit" className="inline-flex items-center gap-2 rounded-lg bg-brand px-5 py-3 text-sm font-semibold text-white hover:bg-brand-strong">
                 Submit Profile <ArrowRight className="size-4" />
               </button>
             </form>
           </div>
         </section>
       </AnimatedSection>
-
-      <section className="bg-surface py-14">
-        <div className="container-page">
-          <SectionHeader align="center" eyebrow="Explore Opportunities" title={<>Find the Role That <span className="text-brand">Fits You.</span></>} />
-          <div className="mt-8 overflow-hidden rounded-2xl border border-border bg-white">
-            {JOBS.map((j, i) => (
-              <div key={j.title} className={`grid items-center gap-3 p-4 md:grid-cols-5 ${i ? "border-t border-border" : ""}`}>
-                <div className="font-semibold text-ink md:col-span-2">{j.title}</div>
-                <div className="text-sm text-ink-soft">{j.department}</div>
-                <div className="text-sm text-ink-soft">{j.location}</div>
-                <Link to="/contact-us" className="inline-flex items-center gap-2 text-sm font-semibold text-brand">
-                  Apply Now <ArrowRight className="size-4" />
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section bg-surface">
-        <div className="container-page grid gap-6 lg:grid-cols-[2fr_1fr] lg:items-center">
-          <div>
-            <p className="eyebrow">Don’t see the right role?</p>
-            <h2 className="mt-2 text-3xl font-bold text-ink">We’re Always Looking for <span className="text-brand">Great Minds.</span></h2>
-            <p className="mt-2 text-ink-soft">Share your profile with us and we will reach out when the right opportunity comes along.</p>
-          </div>
-          <form className="flex flex-col gap-2 sm:flex-row">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="w-full rounded-lg border border-border bg-white px-4 py-3 text-sm text-ink placeholder:text-ink-soft focus:outline-none focus:ring-2 focus:ring-brand/30"
-            />
-            <button className="inline-flex items-center gap-2 rounded-lg bg-brand px-5 py-3 text-sm font-semibold text-white hover:bg-brand-strong">
-              Submit Profile <ArrowRight className="size-4" />
-            </button>
-          </form>
-        </div>
-      </section>
     </SiteLayout>
   );
 }

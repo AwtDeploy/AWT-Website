@@ -7,13 +7,14 @@ interface PageHeroProps {
   title: ReactNode;
   subtitle: string;
   image: string;
+  imageAlt?: string;
   primary?: { label: string; helper?: string; to: string };
   secondary?: { label: string; to: string };
   children?: ReactNode;
   dark?: boolean;
 }
 
-export function PageHero({ eyebrow, title, subtitle, image, primary, secondary, children, dark }: PageHeroProps) {
+export function PageHero({ eyebrow, title, subtitle, image, imageAlt, primary, secondary, children, dark }: PageHeroProps) {
   return (
     <section className={`relative overflow-hidden ${dark ? "bg-black" : "bg-gradient-to-br from-surface to-white"}`}>
       <div className="container-page grid items-center gap-10 py-12 lg:grid-cols-2 lg:py-16">
@@ -43,7 +44,7 @@ export function PageHero({ eyebrow, title, subtitle, image, primary, secondary, 
           <div className="absolute -inset-4 rounded-3xl bg-brand/10 blur-2xl animate-pulse-glow" aria-hidden="true" />
           <img
             src={image}
-            alt=""
+            alt={imageAlt || eyebrow}
             className="relative w-full rounded-2xl border border-border object-cover shadow-xl animate-scale-in"
           />
         </div>

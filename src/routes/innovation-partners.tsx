@@ -12,17 +12,11 @@ import {
   PRODUCTS,
   ROUTE_META,
 } from "@/lib/site-content";
+import { pageHead } from "@/lib/seo";
 import heroInnovationBanner from "@/assets/hero-innovation-banner.png";
 
 export const Route = createFileRoute("/innovation-partners")({
-  head: () => ({
-    meta: [
-      { title: ROUTE_META.partners.title },
-      { name: "description", content: ROUTE_META.partners.description },
-      { property: "og:title", content: ROUTE_META.partners.title },
-      { property: "og:description", content: ROUTE_META.partners.description },
-    ],
-  }),
+  head: () => pageHead({ title: ROUTE_META.partners.title, description: ROUTE_META.partners.description, path: "/innovation-partners" }),
   component: InnovationPartnersPage,
 });
 

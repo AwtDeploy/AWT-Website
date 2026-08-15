@@ -13,17 +13,11 @@ import {
   PRODUCTS,
   ROUTE_META,
 } from "@/lib/site-content";
+import { pageHead } from "@/lib/seo";
 import heroHomeBanner from "@/assets/hero-home-banner.png";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: ROUTE_META.home.title },
-      { name: "description", content: ROUTE_META.home.description },
-      { property: "og:title", content: ROUTE_META.home.title },
-      { property: "og:description", content: ROUTE_META.home.description },
-    ],
-  }),
+  head: () => pageHead({ title: ROUTE_META.home.title, description: ROUTE_META.home.description, path: "/" }),
   component: HomePage,
 });
 
@@ -99,13 +93,24 @@ function HomePage() {
               </div>
             </div>
             <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {HOME_SOLUTIONS.map((s) => (
-                <div key={s.title} className="card-soft p-6">
-                  <span className="icon-chip"><s.icon className="size-5" /></span>
-                  <h3 className="mt-4 text-lg font-semibold text-ink">{s.title}</h3>
-                  <p className="mt-1.5 text-sm text-ink-soft">{s.description}</p>
-                </div>
-              ))}
+              {HOME_SOLUTIONS.map((s) => {
+                const card = (
+                  <>
+                    <span className="icon-chip"><s.icon className="size-5" /></span>
+                    <h3 className="mt-4 text-lg font-semibold text-ink">{s.title}</h3>
+                    <p className="mt-1.5 text-sm text-ink-soft">{s.description}</p>
+                  </>
+                );
+                return s.href ? (
+                  <a key={s.title} href={s.href} className="card-soft block p-6">
+                    {card}
+                  </a>
+                ) : (
+                  <div key={s.title} className="card-soft p-6">
+                    {card}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>

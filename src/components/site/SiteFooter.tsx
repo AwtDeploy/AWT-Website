@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, Phone, Linkedin, Twitter, Facebook, Instagram } from "lucide-react";
 import { COMPANY } from "@/lib/site-content";
 import awtLogo from "@/assets/Angadi-world-New-logo.jpg";
@@ -11,6 +10,7 @@ const COMPANY_LINKS = [
 ];
 
 const SOLUTION_LINKS = [
+  { label: "QR Technology", to: "/solutions/qr-technology" },
   { label: "Digital Transformation", to: "/solutions" },
   { label: "Software Engineering", to: "/solutions" },
   { label: "AI & Automation", to: "/solutions" },
@@ -32,7 +32,7 @@ export function SiteFooter() {
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <div className="inline-flex items-center justify-center rounded-md bg-white px-3 py-2">
-              <img src={awtLogo} alt="AWT" className="h-12 w-auto" />
+              <img src={awtLogo} alt="Angadi World Technologies" className="h-12 w-auto" />
             </div>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/70">
               AWT is a global technology company delivering digital transformation, enterprise IT
@@ -40,17 +40,17 @@ export function SiteFooter() {
             </p>
             <div className="mt-6 flex gap-3">
               {[
-                { Icon: Linkedin, href: "https://www.linkedin.com/company/awt-technology/" },
-                { Icon: Twitter, href: "https://x.com/angadiworldtech" },
-                { Icon: Facebook, href: "https://www.facebook.com/angadiworldtechnology" },
-                { Icon: Instagram, href: "https://www.instagram.com/angadiworldtech/" },
-              ].map(({ Icon, href }, i) => (
+                { Icon: Linkedin, href: "https://www.linkedin.com/company/awt-technology/", label: "AWT on LinkedIn" },
+                { Icon: Twitter, href: "https://x.com/angadiworldtech", label: "AWT on X" },
+                { Icon: Facebook, href: "https://www.facebook.com/angadiworldtechnology", label: "AWT on Facebook" },
+                { Icon: Instagram, href: "https://www.instagram.com/angadiworldtech/", label: "AWT on Instagram" },
+              ].map(({ Icon, href, label }) => (
                 <a
-                  key={i}
+                  key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="social"
+                  aria-label={label}
                   className="social-icon inline-flex size-9 items-center justify-center rounded-full border border-white/15 text-white/70 transition hover:border-brand hover:text-brand"
                 >
                   <Icon className="size-4" />
@@ -103,9 +103,9 @@ function FooterCol({ title, items }: { title: string; items: { label: string; to
       <ul className="mt-5 space-y-3">
         {items.map((i) => (
           <li key={i.label}>
-            <Link to={i.to} className="text-sm text-white/70 transition hover:text-brand">
+            <a href={i.to} className="text-sm text-white/70 transition hover:text-brand">
               {i.label}
-            </Link>
+            </a>
           </li>
         ))}
       </ul>

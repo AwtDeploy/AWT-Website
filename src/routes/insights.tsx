@@ -6,17 +6,11 @@ import { SectionHeader } from "@/components/site/SectionHeader";
 import { AnimatedWords } from "@/components/site/AnimatedWords";
 import { AnimatedSection } from "@/components/site/AnimatedSection";
 import { FEATURED_SERIES, INSIGHT_TOPICS, ROUTE_META } from "@/lib/site-content";
+import { pageHead } from "@/lib/seo";
 import heroInsightsBanner from "@/assets/hero-insights-banner.png";
 
 export const Route = createFileRoute("/insights")({
-  head: () => ({
-    meta: [
-      { title: ROUTE_META.insights.title },
-      { name: "description", content: ROUTE_META.insights.description },
-      { property: "og:title", content: ROUTE_META.insights.title },
-      { property: "og:description", content: ROUTE_META.insights.description },
-    ],
-  }),
+  head: () => pageHead({ title: ROUTE_META.insights.title, description: ROUTE_META.insights.description, path: "/insights" }),
   component: InsightsPage,
 });
 

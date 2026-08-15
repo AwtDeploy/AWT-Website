@@ -7,17 +7,12 @@ import { SectionHeader } from "@/components/site/SectionHeader";
 import { AnimatedWords } from "@/components/site/AnimatedWords";
 import { AnimatedSection } from "@/components/site/AnimatedSection";
 import { COMPANY, CONTACT_CARDS, OFFICES, ROUTE_META } from "@/lib/site-content";
+import { pageHead, contactPageJsonLd } from "@/lib/seo";
+import { JsonLd } from "@/components/site/JsonLd";
 import heroContactBanner from "@/assets/hero-contact-banner.png";
 
 export const Route = createFileRoute("/contact-us")({
-  head: () => ({
-    meta: [
-      { title: ROUTE_META.contact.title },
-      { name: "description", content: ROUTE_META.contact.description },
-      { property: "og:title", content: ROUTE_META.contact.title },
-      { property: "og:description", content: ROUTE_META.contact.description },
-    ],
-  }),
+  head: () => pageHead({ title: ROUTE_META.contact.title, description: ROUTE_META.contact.description, path: "/contact-us" }),
   component: ContactPage,
 });
 
@@ -46,6 +41,7 @@ function ContactPage() {
   };
   return (
     <SiteLayout>
+      <JsonLd data={contactPageJsonLd()} />
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-white">
         <div className="container-page grid items-center gap-8 py-8 lg:grid-cols-2 lg:py-12">
@@ -154,7 +150,7 @@ function ContactPage() {
               {OFFICES.map((o) => (
                 <div key={o.city} className="overflow-hidden rounded-2xl border border-border bg-white shadow-sm">
                   {o.image ? (
-                    <img src={o.image} alt={o.city} className="aspect-[16/9] w-full object-cover" />
+                    <img src={o.image} alt={`${o.city} office of Angadi World Technologies`} className="aspect-[16/9] w-full object-cover" />
                   ) : (
                     <div className="aspect-[16/9] bg-gradient-to-br from-[#1a1a1f] via-brand-strong to-brand" />
                   )}

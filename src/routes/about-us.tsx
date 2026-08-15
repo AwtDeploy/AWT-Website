@@ -14,24 +14,20 @@ import {
   ROUTE_META,
   VALUES,
 } from "@/lib/site-content";
+import { pageHead, aboutPageJsonLd } from "@/lib/seo";
+import { JsonLd } from "@/components/site/JsonLd";
 import heroAboutBanner from "@/assets/hero-about-banner.png";
 import founderImg from "@/assets/Sravan.jpg";
 
 export const Route = createFileRoute("/about-us")({
-  head: () => ({
-    meta: [
-      { title: ROUTE_META.about.title },
-      { name: "description", content: ROUTE_META.about.description },
-      { property: "og:title", content: ROUTE_META.about.title },
-      { property: "og:description", content: ROUTE_META.about.description },
-    ],
-  }),
+  head: () => pageHead({ title: ROUTE_META.about.title, description: ROUTE_META.about.description, path: "/about-us" }),
   component: AboutPage,
 });
 
 function AboutPage() {
   return (
     <SiteLayout>
+      <JsonLd data={aboutPageJsonLd()} />
       {/* Hero Section */}
       <section className="relative overflow-hidden" style={{ backgroundColor: "#FDFDFD" }}>
         <div className="container-page grid items-center gap-8 py-8 lg:grid-cols-2 lg:py-12">

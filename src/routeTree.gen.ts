@@ -17,6 +17,10 @@ import { Route as ContactUsRouteImport } from './routes/contact-us'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as AboutUsRouteImport } from './routes/about-us'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as SolutionsQrTechnologyRouteImport } from './routes/solutions.qr-technology'
+import { Route as AdminLoginRouteImport } from './routes/admin/login'
+import { Route as AdminCareersRouteImport } from './routes/admin/careers'
 
 const SolutionsRoute = SolutionsRouteImport.update({
   id: '/solutions',
@@ -58,6 +62,26 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SolutionsQrTechnologyRoute = SolutionsQrTechnologyRouteImport.update({
+  id: '/qr-technology',
+  path: '/qr-technology',
+  getParentRoute: () => SolutionsRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminCareersRoute = AdminCareersRouteImport.update({
+  id: '/admin/careers',
+  path: '/admin/careers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -67,7 +91,11 @@ export interface FileRoutesByFullPath {
   '/innovation-partners': typeof InnovationPartnersRoute
   '/insights': typeof InsightsRoute
   '/products': typeof ProductsRoute
-  '/solutions': typeof SolutionsRoute
+  '/solutions': typeof SolutionsRouteWithChildren
+  '/admin/careers': typeof AdminCareersRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/solutions/qr-technology': typeof SolutionsQrTechnologyRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -77,7 +105,11 @@ export interface FileRoutesByTo {
   '/innovation-partners': typeof InnovationPartnersRoute
   '/insights': typeof InsightsRoute
   '/products': typeof ProductsRoute
-  '/solutions': typeof SolutionsRoute
+  '/solutions': typeof SolutionsRouteWithChildren
+  '/admin/careers': typeof AdminCareersRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/solutions/qr-technology': typeof SolutionsQrTechnologyRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -88,7 +120,11 @@ export interface FileRoutesById {
   '/innovation-partners': typeof InnovationPartnersRoute
   '/insights': typeof InsightsRoute
   '/products': typeof ProductsRoute
-  '/solutions': typeof SolutionsRoute
+  '/solutions': typeof SolutionsRouteWithChildren
+  '/admin/careers': typeof AdminCareersRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/solutions/qr-technology': typeof SolutionsQrTechnologyRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +137,10 @@ export interface FileRouteTypes {
     | '/insights'
     | '/products'
     | '/solutions'
+    | '/admin/careers'
+    | '/admin/login'
+    | '/solutions/qr-technology'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +151,10 @@ export interface FileRouteTypes {
     | '/insights'
     | '/products'
     | '/solutions'
+    | '/admin/careers'
+    | '/admin/login'
+    | '/solutions/qr-technology'
+    | '/admin'
   id:
     | '__root__'
     | '/'
@@ -121,6 +165,10 @@ export interface FileRouteTypes {
     | '/insights'
     | '/products'
     | '/solutions'
+    | '/admin/careers'
+    | '/admin/login'
+    | '/solutions/qr-technology'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -131,7 +179,10 @@ export interface RootRouteChildren {
   InnovationPartnersRoute: typeof InnovationPartnersRoute
   InsightsRoute: typeof InsightsRoute
   ProductsRoute: typeof ProductsRoute
-  SolutionsRoute: typeof SolutionsRoute
+  SolutionsRoute: typeof SolutionsRouteWithChildren
+  AdminCareersRoute: typeof AdminCareersRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminIndexRoute: typeof AdminIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -192,8 +243,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/solutions/qr-technology': {
+      id: '/solutions/qr-technology'
+      path: '/qr-technology'
+      fullPath: '/solutions/qr-technology'
+      preLoaderRoute: typeof SolutionsQrTechnologyRouteImport
+      parentRoute: typeof SolutionsRoute
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/careers': {
+      id: '/admin/careers'
+      path: '/admin/careers'
+      fullPath: '/admin/careers'
+      preLoaderRoute: typeof AdminCareersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
+
+interface SolutionsRouteChildren {
+  SolutionsQrTechnologyRoute: typeof SolutionsQrTechnologyRoute
+}
+
+const SolutionsRouteChildren: SolutionsRouteChildren = {
+  SolutionsQrTechnologyRoute: SolutionsQrTechnologyRoute,
+}
+
+const SolutionsRouteWithChildren = SolutionsRoute._addFileChildren(
+  SolutionsRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -203,7 +294,10 @@ const rootRouteChildren: RootRouteChildren = {
   InnovationPartnersRoute: InnovationPartnersRoute,
   InsightsRoute: InsightsRoute,
   ProductsRoute: ProductsRoute,
-  SolutionsRoute: SolutionsRoute,
+  SolutionsRoute: SolutionsRouteWithChildren,
+  AdminCareersRoute: AdminCareersRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminIndexRoute: AdminIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
