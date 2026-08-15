@@ -11,6 +11,7 @@ export default defineConfig({
     server: { entry: "server" },
   },
   nitro: {
-    preset: "vercel",
+    // Node VPS (DigitalOcean CloudPanel). Do not use vercel/cloudflare presets in production.
+    preset: "node-server",
   },
 });
