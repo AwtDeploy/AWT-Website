@@ -1,0 +1,107 @@
+# CloudPanel nginx snippets for angadiworldtech.com
+#
+# CloudPanel already manages listen/SSL/server_name. Do NOT paste a second
+# `server { }` block. Open Sites → angadiworldtech.com → Vhost and replace
+# the existing `location / { ... }` (or the static-file rules after {{settings}})
+# with the PREFERRED block below.
+#
+# Why /admin/login 404s today:
+# CloudPanel "Static HTML" looks for a real file. There is no
+# htdocs/.../admin/login, so nginx returns its default 404 page.
+# The CMS is a TanStack Start Node app: nginx must reverse-proxy to Node.
+
+# =============================================================================
+# PREFERRED — reverse proxy to Node (required for Careers CMS writes)
+# =============================================================================
+# Match this port to CloudPanel "App Port" and to PORT / NITRO_PORT on Node.
+# Official CloudPanel Node.js template uses {{app_port}} (often 3000).
+
+location / {
+  proxy_pass http://127.0.0.1:3000/;
+  proxy_http_version 1.1;
+  proxy_set_header X-Forwarded-Host $host;
+  proxy_set_header X-Forwarded-Server $host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header X-Forwarded-Proto $scheme;
+  proxy_set_header Host $http_host;
+  proxy_set_header Upgrade $http_upgrade;
+  proxy_set_header Connection "Upgrade";
+  proxy_pass_request_headers on;
+  proxy_max_temp_file_size 0;
+  proxy_connect_timeout 900;
+  proxy_send_timeout 900;
+  proxy_read_timeout 900;
+  proxy_buffer_size 128k;
+  proxy_buffers 4 256k;
+  proxy_busy_buffers_size 256k;
+  proxy_temp_file_write_size 256k;
+}
+
+# Keep CloudPanel's ACME location as-is (do not delete):
+#   location ~ /.well-known { auth_basic off; allow all; }
+#
+# Do not add a trailing-slash rewrite. The app accepts both
+# /admin/login and /admin/login/ (and /careers vs /careers/).
+
+# =============================================================================
+# FALLBACK ONLY — Static HTML SPA (login may load; CMS persist will fail)
+# =============================================================================
+# Use this only if you cannot run Node yet. Replace the static site's
+# location rules with:
+#
+#   index index.html;
+#   location / {
+#     try_files $uri $uri/ /index.html;
+#   }
+#
+# That stops nginx 404 on /admin/login by serving index.html.
+# Login and job edits still need the Node server (PREFERRED block).
+#
+# Do not add public/admin/login/index.html — it would not be the React CMS.
+
+# =============================================================================
+# Full Node.js vhost (reference only — CloudPanel fills {{...}} placeholders)
+# =============================================================================
+# server {
+#   listen 80;
+#   listen [::]:80;
+#   listen 443 ssl http2;
+#   listen [::]:443 ssl http2;
+#   {{ssl_certificate_key}}
+#   {{ssl_certificate}}
+#   {{server_name}}
+#   {{root}}
+#   {{nginx_access_log}}
+#   {{nginx_error_log}}
+#   if ($scheme != "https") {
+#     rewrite ^ https://$host$uri permanent;
+#   }
+#   location ~ /.well-known {
+#     auth_basic off;
+#     allow all;
+#   }
+#   {{settings}}
+#   index index.html;
+#   location / {
+#     proxy_pass http://127.0.0.1:{{app_port}}/;
+#     proxy_http_version 1.1;
+#     proxy_set_header X-Forwarded-Host $host;
+#     proxy_set_header X-Forwarded-Server $host;
+#     proxy_set_header X-Real-IP $remote_addr;
+#     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#     proxy_set_header X-Forwarded-Proto $scheme;
+#     proxy_set_header Host $http_host;
+#     proxy_set_header Upgrade $http_upgrade;
+#     proxy_set_header Connection "Upgrade";
+#     proxy_pass_request_headers on;
+#     proxy_max_temp_file_size 0;
+#     proxy_connect_timeout 900;
+#     proxy_send_timeout 900;
+#     proxy_read_timeout 900;
+#     proxy_buffer_size 128k;
+#     proxy_buffers 4 256k;
+#     proxy_busy_buffers_size 256k;
+#     proxy_temp_file_write_size 256k;
+#   }
+# }
