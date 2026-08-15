@@ -1,31 +1,58 @@
 # Deploy AWT Website on DigitalOcean CloudPanel
 
-`/admin/login` is a TanStack Start route, not a file. Production must run Node and nginx must reverse-proxy to it. Do not use Vercel.
-
 Live domain: https://angadiworldtech.com  
 Repo: https://github.com/AwtDeploy/AWT-Website
 
-## Why you see a plain nginx 404
+## Fastest fix for the nginx `/admin/login` 404 (no Node)
 
-The live site is still the old **static** Vite export in `htdocs` (hashed `/assets/*.js`, last updated June 2026). CloudPanel Static HTML nginx looks for a physical path. `/careers/` works because a `careers/` folder with `index.html` exists; `/admin/login` does not, so nginx returns its default 404 (not the AWT React 404).
+The live site is a **static** export. Nginx 404s because there is no `admin/login/` folder in `htdocs`. Upload the drop-in from this repo:
 
-GitHub `main` already has `/admin/login`. The droplet has not been switched to that Node build.
+`cloudpanel-dropin/` → website `htdocs` root (merge, do not wipe the rest of the site)
 
-## What “done” looks like
+That folder contains:
 
-1. Latest `main` is on the server and `npm run build` has been run.
-2. Node is running: `npm start` → `.output/server/index.mjs` on `127.0.0.1:3000`.
-3. nginx `location /` reverse-proxies to that port (CloudPanel Node.js site, or the snippet in `cloudpanel-nginx.conf.example`).
-4. https://angadiworldtech.com/admin/login and `/admin/login/` both show the CMS login (AWT page, not nginx 404).
+- `admin/login/index.html`
+- `admin/careers/index.html`
+- `admin/admin.css` and `admin/admin.js`
+- `api/cms.php`
+- `jobs.json`
+- `careers/index.html` (replaces the old hardcoded jobs list so CMS edits show in public)
 
-CMS login (override with env vars if you want):
+### CloudPanel File Manager
+
+1. Log in to CloudPanel (`https://YOUR_DROPLET_IP:8443`).
+2. **Sites** → **angadiworldtech.com** → **File Manager** (or **Vhost** → open the site root / `htdocs`).
+3. Copy the contents of `cloudpanel-dropin/` into that root so you have `htdocs/admin/`, `htdocs/api/`, `htdocs/jobs.json`.
+4. If CloudPanel asks to overwrite `careers/index.html`, choose **yes** (this is what syncs openings to the public page).
+5. Make `jobs.json` writable: File Manager → `jobs.json` → permissions **664** (or 666 if save still fails).
+6. Confirm PHP is on for this site. If `/admin/login/` loads but Sign in fails, set the site type to **PHP** (or keep PHP-FPM in the vhost). `.php` files must execute.
+
+Then open:
+
+- https://angadiworldtech.com/admin/login/
+- https://angadiworldtech.com/admin/login (nginx should redirect to the slash URL once the folder exists)
+
+**Username:** `AWT Careers`  
+**Password:** `OrangeQr#Talent360`
+
+---
+
+## Why you saw a plain nginx 404
+
+The live site is still the old **static** Vite export in `htdocs` (hashed `/assets/*.js`, last updated June 2026). CloudPanel Static HTML nginx looks for a physical path. `/careers/` works because a `careers/` folder with `index.html` exists; `/admin/login` did not.
+
+## Optional later: full Node app
+
+Use the Node reverse-proxy path below only if you want the full TanStack Start build instead of the PHP drop-in.
+
+CMS login:
 
 - Username: `AWT Careers`
 - Password: `OrangeQr#Talent360`
 
 ---
 
-## Preferred: existing live site → Node reverse proxy
+## Preferred later: existing live site → Node reverse proxy
 
 Do **not** delete the site (SSL stays). Change nginx and start Node.
 

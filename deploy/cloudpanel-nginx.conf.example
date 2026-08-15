@@ -58,7 +58,9 @@ location / {
 # That stops nginx 404 on /admin/login by serving index.html.
 # Login and job edits still need the Node server (PREFERRED block).
 #
-# Do not add public/admin/login/index.html — it would not be the React CMS.
+# PHP drop-in CMS (cloudpanel-dropin/): keep Static HTML/PHP vhost.
+# Upload admin/, api/, jobs.json into htdocs. No reverse proxy needed.
+# If Sign in fails, ensure PHP-FPM handles .php (CloudPanel PHP site type).
 
 # =============================================================================
 # Full Node.js vhost (reference only — CloudPanel fills {{...}} placeholders)

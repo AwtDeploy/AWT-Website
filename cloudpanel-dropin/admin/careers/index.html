@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manage job openings | AWT Careers CMS</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="/admin/admin.css" />
+</head>
+<body>
+  <header class="admin-header">
+    <div class="container-page admin-header-inner">
+      <a href="/"><img src="/assets/Angadi-world-New-logo-D8f9ddtc.jpg" alt="Angadi World Technologies" /></a>
+      <div class="admin-nav">
+        <span>Careers CMS</span>
+        <span id="user-chip" class="chip" hidden></span>
+        <a href="/careers/">View careers</a>
+        <button id="logout" class="btn-outline" type="button" style="padding: 0.45rem 0.8rem;">Log out</button>
+      </div>
+    </div>
+  </header>
+  <div class="note"><p id="note" class="container-page">Loading openings...</p></div>
+  <main class="container-page" style="padding: 2rem 1.25rem 4rem;">
+    <div style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem; align-items:end;">
+      <div>
+        <p class="eyebrow">Careers CMS</p>
+        <h1 style="margin: 0.4rem 0 0; font-size: 2rem;">Job openings</h1>
+        <p id="counts" style="color: var(--ink-soft); margin: 0.4rem 0 0;">Changes appear on the public careers page.</p>
+      </div>
+      <button id="add" class="btn-primary" type="button">Add opening</button>
+    </div>
+    <div id="list" class="card" style="margin-top: 1.5rem; overflow:hidden;"></div>
+  </main>
+  <div id="modal" class="modal" hidden>
+    <form id="job-form">
+      <h2 id="form-title" style="margin-top:0;">Add opening</h2>
+      <input type="hidden" name="id" />
+      <div style="display:grid; gap:0.75rem;">
+        <label><span>Job title</span><input class="field" name="title" required /></label>
+        <div style="display:grid; gap:0.75rem; grid-template-columns:1fr 1fr;">
+          <label><span>Department</span><input class="field" name="department" required /></label>
+          <label><span>Location</span><input class="field" name="location" required /></label>
+        </div>
+        <div style="display:grid; gap:0.75rem; grid-template-columns:1fr 1fr;">
+          <label><span>Type</span>
+            <select class="field" name="type">
+              <option>Full-time</option><option>Part-time</option><option>Contract</option><option>Internship</option>
+            </select>
+          </label>
+          <label><span>Status</span>
+            <select class="field" name="status">
+              <option value="open">Open</option>
+              <option value="closed">Closed</option>
+            </select>
+          </label>
+        </div>
+        <label><span>Description</span><textarea class="field" name="description" rows="4"></textarea></label>
+        <label><span>Apply link</span><input class="field" name="applyUrl" placeholder="/contact-us" /></label>
+      </div>
+      <p id="form-error" class="error" hidden></p>
+      <div style="display:flex; justify-content:flex-end; gap:0.5rem; margin-top:1rem;">
+        <button type="button" class="btn-outline" id="cancel">Cancel</button>
+        <button type="submit" class="btn-primary">Save opening</button>
+      </div>
+    </form>
+  </div>
+  <script src="/admin/admin.js"></script>
+  <script>
+    const listEl = document.getElementById("list");
+    const noteEl = document.getElementById("note");
+    const countsEl = document.getElementById("counts");
+    const modal = document.getElementById("modal");
+    const form = document.getElementById("job-form");
+    let jobs = [];
+
+    function render() {
+      const openCount = jobs.filter((job) => job.status === "open").length;
+      countsEl.textContent = `${openCount} open · ${jobs.length} total. Changes appear on the public careers page.`;
+      if (!jobs.length) {
+        listEl.innerHTML = `<p style="padding:2rem; text-align:center; color:var(--ink-soft);">No openings yet. Add the first role to get started.</p>`;
+        return;
+      }
+      listEl.innerHTML = jobs.map((job) => `
+        <div class="job-row">
+          <div>
+            <strong>${escapeHtml(job.title)}</strong>
+            <div style="color:var(--ink-soft); font-size:0.9rem; margin-top:0.25rem;">
+              ${escapeHtml(job.department)} · ${escapeHtml(job.location)} · ${escapeHtml(job.type)}
+            </div>
+          </div>
+          <span class="chip">${job.status === "open" ? "Open" : "Closed"}</span>
+          <button type="button" data-toggle="${escapeHtml(job.id)}" style="background:none; border:0; color:var(--brand); font-weight:700; cursor:pointer; text-align:left;">
+            ${job.status === "open" ? "Close role" : "Reopen role"}
+          </button>
+          <div style="display:flex; gap:0.4rem;">
+            <button class="icon-btn" type="button" data-edit="${escapeHtml(job.id)}" aria-label="Edit">✎</button>
+            <button class="icon-btn" type="button" data-delete="${escapeHtml(job.id)}" aria-label="Delete">🗑</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[char]));
+    }
+
+    function openForm(job) {
+      form.reset();
+      form.id.value = job?.id || "";
+      form.title.value = job?.title || "";
+      form.department.value = job?.department || "";
+      form.location.value = job?.location || "";
+      form.type.value = job?.type || "Full-time";
+      form.status.value = job?.status || "open";
+      form.description.value = job?.description || "";
+      form.applyUrl.value = job?.applyUrl || "/contact-us";
+      document.getElementById("form-title").textContent = job?.id ? "Edit opening" : "Add opening";
+      document.getElementById("form-error").hidden = true;
+      modal.hidden = false;
+    }
+
+    async function boot() {
+      try {
+        const session = await AwtCms.cms("session");
+        if (!session.user) {
+          location.replace("/admin/login/");
+          return;
+        }
+        document.getElementById("user-chip").hidden = false;
+        document.getElementById("user-chip").textContent = session.user;
+        const data = await AwtCms.cms("jobs");
+        jobs = data.jobs || [];
+        noteEl.textContent = data.note || "Openings loaded.";
+        render();
+      } catch (error) {
+        if (String(error.message).includes("Unauthorized")) {
+          location.replace("/admin/login/");
+          return;
+        }
+        noteEl.textContent = error.message || "Could not load openings. Confirm PHP is enabled and /api/cms.php is uploaded.";
+      }
+    }
+
+    document.getElementById("add").addEventListener("click", () => openForm(null));
+    document.getElementById("cancel").addEventListener("click", () => { modal.hidden = true; });
+    document.getElementById("logout").addEventListener("click", async () => {
+      await AwtCms.cms("logout", {});
+      location.replace("/admin/login/");
+    });
+    listEl.addEventListener("click", async (event) => {
+      const toggle = event.target.closest("[data-toggle]");
+      const edit = event.target.closest("[data-edit]");
+      const remove = event.target.closest("[data-delete]");
+      if (edit) {
+        openForm(jobs.find((job) => job.id === edit.dataset.edit));
+      } else if (remove && confirm("Delete this job opening? This cannot be undone.")) {
+        const data = await AwtCms.cms("delete", { id: remove.dataset.delete });
+        jobs = data.jobs;
+        noteEl.textContent = data.note;
+        render();
+      } else if (toggle) {
+        const job = jobs.find((item) => item.id === toggle.dataset.toggle);
+        const data = await AwtCms.cms("save", { ...job, status: job.status === "open" ? "closed" : "open" });
+        jobs = data.jobs;
+        noteEl.textContent = data.note;
+        render();
+      }
+    });
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const error = document.getElementById("form-error");
+      error.hidden = true;
+      try {
+        const data = await AwtCms.cms("save", {
+          id: form.id.value || undefined,
+          title: form.title.value,
+          department: form.department.value,
+          location: form.location.value,
+          type: form.type.value,
+          status: form.status.value,
+          description: form.description.value,
+          applyUrl: form.applyUrl.value,
+        });
+        jobs = data.jobs;
+        noteEl.textContent = data.note;
+        modal.hidden = true;
+        render();
+      } catch (err) {
+        error.hidden = false;
+        error.textContent = err.message;
+      }
+    });
+
+    boot();
+  </script>
+</body>
+</html>

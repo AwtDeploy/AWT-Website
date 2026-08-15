@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Careers at AWT | Build What Matters</title>
+  <meta name="description" content="Explore careers at AWT across engineering, product, design, and operations in a modern innovation-led work environment." />
+  <link rel="canonical" href="https://angadiworldtech.com/careers/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="/admin/admin.css" />
+  <style>
+    .site-header { background:#fff; border-bottom:1px solid var(--border); position:sticky; top:0; z-index:20; }
+    .site-header-inner { display:flex; align-items:center; justify-content:space-between; min-height:5rem; gap:1rem; }
+    .site-header img { height:3.5rem; }
+    .site-nav { display:none; gap:1.4rem; }
+    @media (min-width: 1100px) { .site-nav { display:flex; } }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height:1.1; margin: 0.75rem 0; }
+    .brand { color: var(--brand); }
+    .jobs { overflow:hidden; }
+  </style>
+</head>
+<body style="background:#fff;">
+  <header class="site-header">
+    <div class="container-page site-header-inner">
+      <a href="/"><img src="/assets/Angadi-world-New-logo-D8f9ddtc.jpg" alt="Angadi World Technologies" /></a>
+      <nav class="site-nav">
+        <a href="/">Home</a>
+        <a href="/about-us/">About Us</a>
+        <a href="/solutions/">Solutions</a>
+        <a href="/products/">Products</a>
+        <a href="/innovation-partners/">Innovation Partners</a>
+        <a href="/insights/">Insights</a>
+        <a class="active" href="/careers/">Careers</a>
+        <a href="/contact-us/">Contact Us</a>
+      </nav>
+      <a class="btn-primary" href="/contact-us/">Get a Consultation</a>
+    </div>
+  </header>
+  <main>
+    <section class="container-page hero" style="padding: 3rem 1.25rem;">
+      <p class="eyebrow">Careers</p>
+      <h1>Build Your Future.<br /><span class="brand">Build What Matters.</span></h1>
+      <p style="max-width:36rem; color:var(--ink-soft);">At AWT, we build people, ideas, and the future. Be part of a team that is innovating today for a better tomorrow.</p>
+    </section>
+    <section class="container-page" style="padding: 0 1.25rem 4rem;">
+      <p class="eyebrow" style="text-align:center;">Explore Opportunities</p>
+      <h2 style="text-align:center; font-size:2rem;">Find the Role That <span class="brand">Fits You.</span></h2>
+      <div id="jobs" class="card jobs" style="margin-top:1.5rem;"></div>
+    </section>
+  </main>
+  <script>
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[char]));
+    }
+    async function loadJobs() {
+      const root = document.getElementById("jobs");
+      try {
+        const php = await fetch("/api/cms.php?action=public", { cache: "no-store" });
+        const fromPhp = php.ok ? await php.json() : null;
+        const payload = fromPhp?.jobs ? fromPhp : await (await fetch("/jobs.json", { cache: "no-store" })).json();
+        const jobs = Array.isArray(payload) ? payload : payload.jobs || [];
+        const open = jobs.filter((job) => (job.status || "open") === "open");
+        if (!open.length) {
+          root.innerHTML = `<p style="padding:2rem; text-align:center; color:var(--ink-soft);">There are no open roles right now.</p>`;
+          return;
+        }
+        root.innerHTML = open.map((job, index) => `
+          <div class="job-row" style="${index ? "border-top:1px solid var(--border);" : ""}">
+            <div>
+              <strong>${escapeHtml(job.title)}</strong>
+              ${job.description ? `<div style="color:var(--ink-soft); font-size:0.9rem; margin-top:0.25rem;">${escapeHtml(job.description)}</div>` : ""}
+            </div>
+            <div style="color:var(--ink-soft);">${escapeHtml(job.department)}</div>
+            <div style="color:var(--ink-soft);">${escapeHtml(job.location)}</div>
+            <a href="${escapeHtml(job.applyUrl || "/contact-us/")}" style="color:var(--brand); font-weight:700; text-decoration:none;">Apply Now</a>
+          </div>
+        `).join("");
+      } catch {
+        root.innerHTML = `<p style="padding:2rem; text-align:center; color:var(--ink-soft);">Could not load openings right now.</p>`;
+      }
+    }
+    loadJobs();
+  </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Careers CMS login | AWT</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" />
+  <link rel="stylesheet" href="/admin/admin.css" />
+</head>
+<body>
+  <header class="admin-header">
+    <div class="container-page admin-header-inner">
+      <a href="/"><img src="/assets/Angadi-world-New-logo-D8f9ddtc.jpg" alt="Angadi World Technologies" /></a>
+      <div class="admin-nav">
+        <span>Careers CMS</span>
+        <a href="/careers/">View careers</a>
+      </div>
+    </div>
+  </header>
+  <main class="container-page" style="padding: 3rem 1.25rem;">
+    <div style="max-width: 28rem; margin: 0 auto;">
+      <p class="eyebrow">Careers CMS</p>
+      <h1 style="margin: 0.5rem 0 0; font-size: 2rem;">Manage job openings</h1>
+      <p style="color: var(--ink-soft);">Sign in to add, edit, or close roles on the careers page.</p>
+      <form id="login-form" class="card" style="padding: 1.5rem; display: grid; gap: 1rem;">
+        <label>
+          <span>Username</span>
+          <input class="field" name="username" autocomplete="username" required />
+        </label>
+        <label>
+          <span>Password</span>
+          <input class="field" type="password" name="password" autocomplete="current-password" required />
+        </label>
+        <p id="error" class="error" hidden></p>
+        <button class="btn-primary" type="submit">Sign in</button>
+      </form>
+    </div>
+  </main>
+  <script src="/admin/admin.js"></script>
+  <script>
+    (async () => {
+      try {
+        const session = await AwtCms.cms("session");
+        if (session.user) location.replace("/admin/careers/");
+      } catch (_) {}
+    })();
+    document.getElementById("login-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const error = document.getElementById("error");
+      const button = form.querySelector("button");
+      error.hidden = true;
+      button.disabled = true;
+      button.textContent = "Signing in...";
+      try {
+        await AwtCms.cms("login", {
+          username: form.username.value,
+          password: form.password.value,
+        });
+        location.replace("/admin/careers/");
+      } catch (err) {
+        error.hidden = false;
+        error.textContent = err.message || "Could not sign in.";
+        button.disabled = false;
+        button.textContent = "Sign in";
+      }
+    });
+  </script>
+</body>
+</html>

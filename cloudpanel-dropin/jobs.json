@@ -1,0 +1,62 @@
+[
+  {
+    "id": "job-fullstack",
+    "title": "Senior Full Stack Developer",
+    "department": "Engineering",
+    "location": "Hyderabad, India",
+    "type": "Full-time",
+    "description": "Build and scale web products across the AWT platform stack.",
+    "applyUrl": "/contact-us",
+    "status": "open",
+    "createdAt": "2026-01-15T00:00:00.000Z",
+    "updatedAt": "2026-01-15T00:00:00.000Z"
+  },
+  {
+    "id": "job-aiml",
+    "title": "AI/ML Engineer",
+    "department": "Engineering",
+    "location": "Bengaluru, India",
+    "type": "Full-time",
+    "description": "Design intelligent systems and automation that create measurable business value.",
+    "applyUrl": "/contact-us",
+    "status": "open",
+    "createdAt": "2026-01-15T00:00:00.000Z",
+    "updatedAt": "2026-01-15T00:00:00.000Z"
+  },
+  {
+    "id": "job-devops",
+    "title": "Cloud DevOps Engineer",
+    "department": "Engineering",
+    "location": "Hyderabad, India",
+    "type": "Full-time",
+    "description": "Own cloud infrastructure, delivery pipelines, and operational reliability.",
+    "applyUrl": "/contact-us",
+    "status": "open",
+    "createdAt": "2026-01-15T00:00:00.000Z",
+    "updatedAt": "2026-01-15T00:00:00.000Z"
+  },
+  {
+    "id": "job-pm",
+    "title": "Product Manager",
+    "department": "Product",
+    "location": "Hyderabad, India",
+    "type": "Full-time",
+    "description": "Shape product direction from discovery through delivery with engineering and design.",
+    "applyUrl": "/contact-us",
+    "status": "open",
+    "createdAt": "2026-01-15T00:00:00.000Z",
+    "updatedAt": "2026-01-15T00:00:00.000Z"
+  },
+  {
+    "id": "job-design",
+    "title": "UI/UX Designer",
+    "department": "Design",
+    "location": "Bengaluru, India",
+    "type": "Full-time",
+    "description": "Craft clear, premium product experiences across AWT platforms and websites.",
+    "applyUrl": "/contact-us",
+    "status": "open",
+    "createdAt": "2026-01-15T00:00:00.000Z",
+    "updatedAt": "2026-01-15T00:00:00.000Z"
+  }
+]
